@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4738.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	Drive drive;
+	Joystick xboxXontroller;
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -39,20 +43,25 @@ public class Robot extends IterativeRobot {
 
     }
     
+    
     /**
 	 * 
 	 * This function is called once before during operator control
 	 * 
 	 */
     public void teleopInit() {
-
+    	drive = new Drive(0, 1);
+    	xboxXontroller = new Joystick(0);
     }
 
+    
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        
+    	
+        drive.parabolicTank(xboxXontroller.getRawAxis(1), xboxXontroller.getRawAxis(5));
+    
     }
     
     /**
