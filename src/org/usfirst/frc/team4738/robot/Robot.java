@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	Drive drive;
-	Joystick xboxXontroller;
+	Gamepad xboxXontroller;
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -51,7 +51,7 @@ public class Robot extends IterativeRobot {
 	 */
     public void teleopInit() {
     	drive = new Drive(0, 1);
-    	xboxXontroller = new Joystick(0);
+    	xboxXontroller = new Gamepad(0);
     }
 
     
@@ -61,7 +61,11 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	
         drive.parabolicTank(xboxXontroller.getRawAxis(1), xboxXontroller.getRawAxis(5));
-    
+        if(xboxXontroller.getButtonDown(0)){
+        	drive.parabolicTank(1, 0);
+        } else{
+        	drive.parabolicTank(0, 1);
+        }
     }
     
     /**
