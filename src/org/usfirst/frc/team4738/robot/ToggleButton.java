@@ -7,7 +7,7 @@ public class ToggleButton {
 	
 	public boolean getToggle(boolean state){
 		
-		if(state && lastPress){
+		if(state && !lastPress){
 			toggle = !toggle;
 			lastPress = true;
 		} else if(!state){
