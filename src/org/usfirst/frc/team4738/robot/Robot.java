@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4738.robot;
 
+import Wrapper.Gamepad;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -40,7 +41,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+    	
     }
     
     
