@@ -7,5 +7,8 @@ package Wrapper;
  */
 public class Encoder {
 
+	public Encoder(){
+		
+	}
 	
 }
