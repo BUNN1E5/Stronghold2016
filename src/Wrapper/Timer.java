@@ -16,6 +16,14 @@ public class Timer {
 		return deltaTime;
 	}
 	
+	/**
+	 * @author Ghjf544912
+	 * (^u^)
+	 */
+	public void updateDeltaTime(){
+		deltaTime=startTime-getTime();
+	}
+	
 	public void reset(){
 		startTime = System.currentTimeMillis();
 	}
