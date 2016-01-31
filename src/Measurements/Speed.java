@@ -7,8 +7,7 @@ package Measurements;
  */
 public class Speed {
 	
-	public double rawSpeed;
-	public double treadLength;
+	public double rawSpeed, treadLength;
 	
 	/**
 	 * 

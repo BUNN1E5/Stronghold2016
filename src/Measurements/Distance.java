@@ -7,8 +7,7 @@ package Measurements;
  */
 public class Distance {
 	
-	public double rawDistance;
-	public double treadLength;
+	public double rawDistance, treadLength;
 	
 	/**
 	 * 

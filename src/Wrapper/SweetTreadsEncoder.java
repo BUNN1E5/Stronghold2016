@@ -1,13 +1,13 @@
 package Wrapper;
 
-import edu.wpi.first.wpilibj.*;//idk, maybe
+import edu.wpi.first.wpilibj.Encoder;
 
 /**
  * 
  * @author Ghjf544912
  *
  */
-public class Encoder {
+public class SweetTreadsEncoder extends Encoder {
 
 	/**
 	 * TODO: Make it do something.
@@ -16,7 +16,8 @@ public class Encoder {
 	 * @param inReverse Tells if the motors are moving forwards/backwards.
 	 * @param radius Radius of the wheel. 
 	 */
-	public Encoder(int channelA, int channelB, boolean inReverse, double radius){
+	public SweetTreadsEncoder(int channelA, int channelB, boolean inReverse, double radius){
+		super(channelA,channelB,inReverse);
 		
 	}
 	
