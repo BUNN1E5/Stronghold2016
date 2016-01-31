@@ -1,5 +1,7 @@
 package Wrapper;
 
+import edu.wpi.first.wpilibj.*;//idk, maybe
+
 /**
  * 
  * @author Ghjf544912
