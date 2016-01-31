@@ -7,7 +7,7 @@ package Measurements;
  */
 public class Distance {
 	
-	public double rawDistance, treadLength;
+	public double rawDistance;
 	
 	/**
 	 * 
@@ -15,16 +15,6 @@ public class Distance {
 	 */
 	public Distance(double rawDistance){
 		this.rawDistance=rawDistance;
-	}
-	
-	/**
-	 * 
-	 * @param rawDistance The encoder's raw distance value.
-	 * @param treadLength The length of the treads on the row boat.
-	 */
-	public Distance(double rawDistance, double treadLength){
-		this.rawDistance=rawDistance;
-		this.treadLength=treadLength;
 	}
 	
 	/**
@@ -59,15 +49,6 @@ public class Distance {
 	 * @return Distance in inches.
 	 */
 	public double getInches(){
-		
-		return rawDistance;
-	}
-	
-	/**
-	 * TODO: Add math to change raw distance to actual distance, remove rawDistance as return variable.
-	 * @return Distance in terms of the number of times the treads have cycled.
-	 */
-	public double getTreadCycles(){
 		
 		return rawDistance;
 	}
