@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4738.robot;
 
+import Wrapper.Encoder;
 import Wrapper.Gamepad;
 import Wrapper.XboxController;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -8,6 +9,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
+
+//TODO: replace Encoder with wrapper encoder
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,17 +24,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	
-	XboxController controller;
+	Gamepad controller;
 	
 	Drive drive; 
+	
+	Encoder encoder;
 	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	controller = new XboxController(0);
-    	drive = new Drive(0, 1); 
+    	controller = new Gamepad(0);
+    	drive = new Drive(0, 1);
+    	encoder = new Encoder(0, 1, 0.25); //Inches
     }
     
     
@@ -56,7 +64,7 @@ public class Robot extends IterativeRobot {
 	 * 
 	 */
     public void teleopInit() {
-    	
+    	encoder.reset();
     }
 
     
@@ -64,11 +72,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    
-    	drive.linearTank(controller.getLeftTrigger(),0);
-    	if(controller.getDPad(XboxController.Direction.NE)){
-    		drive.linearTank(0.5, 0.5);
-    	}
+        
+    	drive.parabolicTank(0, controller.getRawAxis(1));
+    	
+    	SmartDashboard.putDouble("Encoder Angle in Degrees", encoder.getAngle());
+    	SmartDashboard.putDouble("Rotations", encoder.getDistance());
     }
     
     /**
