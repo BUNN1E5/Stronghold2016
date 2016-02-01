@@ -2,7 +2,7 @@ package Wrapper;
 
 /**
  * 
- * @author Owen & Stephen helped make functions and javadocs
+ * @author Owen & Stephen (un peqeno)
  */
 public class Encoder{
 	
@@ -43,11 +43,11 @@ public class Encoder{
 	}
 	
 	/**
-	 * 
-	 * @return The speed the encoder is at based on the units of the radius.
+	 * @author Ghjf544912
+	 * @return The speed the encoder is at based on the units of the radius per second.
 	 */
 	public double getSpeed(){
-		return 59330;//for now
+		return (encoder.getRate() / ClicksPerRotation) * circumference;
 	}
 	
 	/**
