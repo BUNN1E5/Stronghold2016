@@ -2,7 +2,7 @@ package Wrapper;
 
 /**
  * 
- *
+ * @author Owen & Stephen helped make functions and javadocs
  */
 public class Encoder{
 	
@@ -10,14 +10,23 @@ public class Encoder{
 	
 	public edu.wpi.first.wpilibj.Encoder encoder;
 	
-	private double radius;
-	private double circumference;
-	private double conversionFactor;
+	private double radius, circumference, conversionFactor;
 	
+	/**
+	 * 
+	 * @param port1 Channel A
+	 * @param port2 Channel B
+	 */
 	public Encoder(int port1, int port2){
 		encoder = new edu.wpi.first.wpilibj.Encoder(port1, port2);
 	}
 	
+	/**
+	 * 
+	 * @param port1 Channel A
+	 * @param port2 Channel B
+	 * @param radius Radius of the wheel.
+	 */
 	public Encoder(int port1, int port2, double radius){
 		encoder = new edu.wpi.first.wpilibj.Encoder(port1, port2);
 		this.radius = radius;
@@ -27,7 +36,7 @@ public class Encoder{
 	
 	/**
 	 * 
-	 * @return The distance the encoder has traveled based on the unit of radius
+	 * @return The distance the encoder has spun based on the units of the radius.
 	 */
 	public double getDistance(){
 		 return circumference * (encoder.getDistance() / ClicksPerRotation);
@@ -35,7 +44,15 @@ public class Encoder{
 	
 	/**
 	 * 
-	 * @return Angle of rotation based off of start rotation
+	 * @return The speed the encoder is at based on the units of the radius.
+	 */
+	public double getSpeed(){
+		return 59330;//for now
+	}
+	
+	/**
+	 * 
+	 * @return Angle of rotation based on initial angle.
 	 */
 	public double getAngle(){
 		double clicks = encoder.getDistance();
