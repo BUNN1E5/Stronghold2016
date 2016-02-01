@@ -4,7 +4,7 @@ public class Timer {
 	
 	double deltaTime = 0, startTime ;
 	
-	public void start() {//sorry but i didn't like using an object to do the start functino
+	public void start() {
 		startTime = System.currentTimeMillis();	
 	}
 	
@@ -16,7 +16,10 @@ public class Timer {
 		return System.currentTimeMillis() - startTime;
 	}
 	
-	
+	/**
+	 * 
+	 * @return The change in time.
+	 */
 	public double getDeltaTime(){
 		return deltaTime;
 	}
@@ -33,9 +36,8 @@ public class Timer {
 	}
 	
 	/**
-	 * TODO: Add descriptions for the doc here.
-	 * @param time
-	 * @return
+	 * @param time Time to wait.
+	 * @return Returns true if it's still waiting, false if the wait period is over.
 	 */
 	public boolean wait(double time){
 		if (time >= getTime())
