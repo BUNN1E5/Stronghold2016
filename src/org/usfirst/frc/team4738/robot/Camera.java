@@ -7,6 +7,11 @@ import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
 
+/**
+ * TODO: Javadoc description on the constructor parameter please!
+ * @author idk who but I bet Jacob
+ *
+ */
 public class Camera {
 	
 	int[] sessions;
@@ -15,6 +20,10 @@ public class Camera {
 	int camIndex = 0;
 	NIVision.Rect rect;
 	
+	/**
+	 * 
+	 * @param camNames
+	 */
 	public Camera(String... camNames){
 		this.camNames = camNames;
 		sessions = new int[camNames.length];
