@@ -7,7 +7,7 @@ package Wrapper;
  */
 public class XboxController extends Gamepad {
 	
-	public enum Button { A, B, X, Y, LeftBumper, rightBumper, Back, Start, L3, R3};
+	public enum Button { A, B, X, Y, L, R, Select, Start, L3, R3};
 	public enum Direction {N, NE, E, SE, S, SW, W, NW};
 	
 	/**
