@@ -16,7 +16,6 @@ public class Camera {
 	
 	int[] sessions;
 	Image frame;
-	String[] camNames;
 	int camIndex = 0;
 	NIVision.Rect rect;
 	
@@ -25,7 +24,6 @@ public class Camera {
 	 * @param camNames
 	 */
 	public Camera(String... camNames){
-		this.camNames = camNames;
 		sessions = new int[camNames.length];
 		
 		rect = new NIVision.Rect(10, 10, 100, 100);
