@@ -9,45 +9,53 @@ import java.util.Date;
 
 //import Wrapper.XboxController;
 
-/** TODO: Create formatted string of all necessary controller data.
- * Writes controller data to text files to be used for autonomous mode later.
- * Change this code and I WILL KILL YOU!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/** TODO: Create formatted string method of all encoder data.
  * @author Ghjf544912
  * 
  */
 public class Writer {
 	
-	public static void main(String[] args){//this is so i could test out the code
-		writeController();
+	public static void main(String[] args) throws IOException{
+		writeData();
 	}
 	
-	public static void writeController(){
-		try {//this outer try/catch makes sure if the file we're making doesn't exist
-			Date rhrn = new Date();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss");//time stamp format for file name
-			String timeStamp = dateFormat.format(rhrn), path = System.getProperty("user.home")+"\\Desktop\\ControllerWrite_"+timeStamp+".txt";
-			File out = new File(path);//sets the file path from above
-			out.createNewFile();//makes the file
-			BufferedWriter write = new BufferedWriter(new FileWriter(out.getAbsolutePath()));
-			//XboxController xbox = new XboxController(1);
-			String inputs;//formatted string that i'll add soon
-			System.out.println("Begin Writing! t=15 seconds");
-			for(int t=15000;t>=0;t--){//this whole loop gets 15 secs of data
-				inputs="<formatted string>";
-				write.write(inputs);
-				write.newLine();
-				try {
-					Thread.sleep(1);//waits a millisec before writing the next set of data
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			System.out.println("Complete! File located at: C:\\Users\\CurrentUser\\ControllerWrites\\"+timeStamp+".txt");
-			write.close();
+	public static String timeStamp(){
+		Date rhrn = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss");
+		return dateFormat.format(rhrn);
+	}
+	
+	public static File createFile(){
+		String path = System.getProperty("user.home")+"\\Desktop\\ControllerWrite_"+timeStamp()+".txt";
+		File out = new File(path);
+		try {
+			out.createNewFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}			
+		}
+		return out;
+	}
+	
+	public static  String formattedData(){
+		
+		return "formatted string";
+	}
+	
+	public static void writeData() throws IOException{
+		BufferedWriter write = new BufferedWriter(new FileWriter(createFile().getAbsolutePath()));
+		System.out.println("Begin Writing! t=15 seconds");
+		for(int t=15000;t>=0;t--){
+			write.write(formattedData());
+			write.newLine();
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Complete! File located at: C:\\Users\\CurrentUser\\ControllerWrites\\"+timeStamp()+".txt");
+		write.close();
 	}
 }
