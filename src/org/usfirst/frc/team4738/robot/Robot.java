@@ -23,21 +23,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	
-	Gamepad controller;
-	
-	Drive drive; 
-	
-	Encoder encoder;
-	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	controller = new Gamepad(0);
-    	drive = new Drive(0, 1);
-    	encoder = new Encoder(0, 1, 0.25); //Inches
+    	
     }
     
     
@@ -64,7 +55,7 @@ public class Robot extends IterativeRobot {
 	 * 
 	 */
     public void teleopInit() {
-    	encoder.reset();
+
     }
 
     
@@ -72,11 +63,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        
-    	drive.parabolicTank(0, controller.getRawAxis(1));
     	
-    	SmartDashboard.putDouble("Encoder Angle in Degrees", encoder.getAngle());
-    	SmartDashboard.putDouble("Rotations", encoder.getDistance());
     }
     
     /**

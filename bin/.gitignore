@@ -1,3 +1,10 @@
 /Wrapper/
 /Measurements/
+<<<<<<< HEAD
 /ProgrammableAutonomous/
+=======
+/org/
+/Teleop/
+/Robot/
+/AutonomousIO/
+>>>>>>> origin/master

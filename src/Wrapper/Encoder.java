@@ -19,6 +19,7 @@ public class Encoder{
 	 */
 	public Encoder(int port1, int port2){
 		encoder = new edu.wpi.first.wpilibj.Encoder(port1, port2);
+		encoder.setDistancePerPulse(0.001);
 	}
 	
 	/**
@@ -47,7 +48,7 @@ public class Encoder{
 	 * @return The speed the encoder is at based on the units of the radius per second.
 	 */
 	public double getSpeed(){
-		return (encoder.getRate() / ClicksPerRotation) * circumference;
+		return circumference * (encoder.getRate() / ClicksPerRotation);
 	}
 	
 	/**
