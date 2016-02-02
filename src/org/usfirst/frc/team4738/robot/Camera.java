@@ -46,8 +46,7 @@ public class Camera {
 	}
 	
 	public void cycleCamera(){
-		NIVision.IMAQdxCloseCamera(sessions[camIndex]);
-		camIndex++;
+		changeCamera(camIndex++);
 		if(camIndex >= sessions.length){
 			camIndex = 0;
 		}
