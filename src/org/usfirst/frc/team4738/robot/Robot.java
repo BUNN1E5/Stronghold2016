@@ -77,6 +77,7 @@ public class Robot extends IterativeRobot {
     	
     	SmartDashboard.putDouble("Encoder Angle in Degrees", encoder.getAngle());
     	SmartDashboard.putDouble("Rotations", encoder.getDistance());
+    	SmartDashboard.putDouble("Speed", encoder.getSpeed());
     }
     
     /**
