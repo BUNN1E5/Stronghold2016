@@ -42,12 +42,12 @@ public class FileManger {
 	
 	//TODO write this method
 	public String readLine(){
-		
+		return "";
 	}
 	
 	//TODO write this horribly inefficeint method
 	public String readLine(int line){
-		
+		return "";
 	}
 	
 	public void appendToFile(String data){
