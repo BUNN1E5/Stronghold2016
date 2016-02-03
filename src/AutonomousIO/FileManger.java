@@ -5,6 +5,8 @@ import java.util.*;
 
 public class FileManger {
 
+	//FIXME make fr and br global vars
+
 	private String path;
 	private ArrayList<String> lines = new ArrayList<>();
 	private File file;
@@ -37,6 +39,33 @@ public class FileManger {
 		}
 	}
 	
+	
+	//TODO write this method
+	public String readLine(){
+		
+	}
+	
+	//TODO write this horribly inefficeint method
+	public String readLine(int line){
+		
+	}
+	
+	public void appendToFile(String data){
+		try{	
+			FileWriter fw = new FileWriter(file, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			
+			addData(data);
+			bw.write(data);
+			bw.newLine();
+			
+			bw.close();
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public void addData(String data){
 		lines.add(data);
 	}
@@ -53,22 +82,6 @@ public class FileManger {
 				bw.write(data);
 				bw.newLine();
 			}
-			
-			bw.close();
-			
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void appendToFile(String data){
-		try{	
-			FileWriter fw = new FileWriter(file, true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			
-			addData(data);
-			bw.write(data);
-			bw.newLine();
 			
 			bw.close();
 			
