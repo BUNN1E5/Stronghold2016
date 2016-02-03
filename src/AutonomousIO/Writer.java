@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import Wrapper.Encoder;
+
 //import Wrapper.XboxController;
 
 /** TODO: Create formatted string method of all encoder data.
@@ -38,8 +40,8 @@ public class Writer {
 	}
 	
 	public static  String formattedData(){
-		
-		return "formatted string";
+		Encoder encoder1 = new Encoder(0,1),encoder2=new Encoder(2,3);
+		return Double.toString(encoder1.getAngle())+","+Double.toString(encoder1.getDistance())+","+Double.toString(encoder1.getSpeed())+","+Double.toString(encoder2.getAngle())+","+Double.toString(encoder2.getDistance())+","+Double.toString(encoder2.getSpeed());
 	}
 	
 	public static void writeData() throws IOException{
