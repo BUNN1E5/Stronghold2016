@@ -8,8 +8,8 @@ import com.ni.vision.NIVision.ShapeMode;
 import edu.wpi.first.wpilibj.CameraServer;
 
 /**
- * TODO: Javadoc description on the constructor parameter please!
- * @author idk who but I bet Jacob
+ * 
+ * @author Jacob
  *
  */
 public class Camera {
@@ -20,8 +20,8 @@ public class Camera {
 	NIVision.Rect rect;
 	
 	/**
-	 * 
-	 * @param camNames
+	 * TODO: Remove camNames.
+	 * @param camNames Names of cameras I guess.
 	 */
 	public Camera(String... camNames){
 		sessions = new int[camNames.length];

@@ -1,8 +1,8 @@
 package Wrapper;
 
 /**
- * TODO: Descriptions for javadocs please!
- * @author idk who
+ * TODO: Descriptions for parameters.
+ * @author Senpai says hi Sean!
  *
  */
 public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
@@ -11,7 +11,6 @@ public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
 	ToggleButton holdButton = new ToggleButton();
 	
 	/**
-	 * SENPAI NOTICE ME
 	 * @param moduleNumber
 	 * @param forwardChannel
 	 * @param reverseChannel
@@ -21,7 +20,6 @@ public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
 	}
 	
 	/**
-	 * LOLS RANDOM CODE STUFF
 	 * @param forwardChannel
 	 * @param reverseChannel
 	 */
