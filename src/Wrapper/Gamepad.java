@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * 
- * @author Garret
+ * @author Garett Davis
  *
  */
 public class Gamepad extends Joystick{

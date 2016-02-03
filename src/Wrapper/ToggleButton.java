@@ -2,13 +2,13 @@ package Wrapper;
 
 /**
  * 
- * @author Garret & Owen
+ * @author Garett & Owen
  *
  */
 public class ToggleButton {
 	boolean lastPress = false;
 	boolean lastPressToggle = false;
-	boolean toggle = false;
+	private boolean toggle = false;
 	
 	/**
 	 * 
@@ -54,6 +54,10 @@ public class ToggleButton {
 		}
 		lastPress = state; //update lastPress to the current press (state) for next check
 		return false;
+	}
+	
+	public boolean getState(){
+		return toggle;
 	}
 	
 }

@@ -7,10 +7,11 @@ package Wrapper;
  */
 public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
 	
-	ToggleButton tbd = new ToggleButton();
+	ToggleButton toggledState = new ToggleButton();
+	ToggleButton holdButton = new ToggleButton();
 	
 	/**
-	 * 
+	 * SENPAI NOTICE ME
 	 * @param moduleNumber
 	 * @param forwardChannel
 	 * @param reverseChannel
@@ -20,7 +21,7 @@ public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
 	}
 	
 	/**
-	 * 
+	 * LOLS RANDOM CODE STUFF
 	 * @param forwardChannel
 	 * @param reverseChannel
 	 */
@@ -28,12 +29,23 @@ public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
 		super(forwardChannel, reverseChannel);
 	}
 
-	public void onHold(boolean button){
-		 if(tbd.getDown(button)){
+	public void onHold(boolean state){
+		 if(holdButton.getDown(state)){
 			 this.set(Value.kForward);
 		 }
-		 else if(tbd.getUp(button)){
+		 else if(holdButton.getUp(state)){
 			 this.set(Value.kReverse);
 		 }
+	}
+	
+	public void toggleDirection(boolean state){
+		if(toggledState.getDown(state)){
+			if(toggledState.getDownToggle(state)){
+				this.set(Value.kForward);
+			} 
+			else{
+				this.set(Value.kReverse);
+			}
+		}
 	}
 }
