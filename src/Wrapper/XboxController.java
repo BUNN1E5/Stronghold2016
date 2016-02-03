@@ -83,12 +83,7 @@ public class XboxController extends Gamepad {
 	 * @return If direction being pressed is direction it returns true, otherwise false.
 	 */
 	public boolean getDPad(XboxController.Direction direction){
-	    		
-		if(this.getPOV() == direction.ordinal() * 45){
-			return true;
-		}
-		
-		return false;
+		return (this.getPOV() == direction.ordinal() * 45)
 	}
 }
 	
