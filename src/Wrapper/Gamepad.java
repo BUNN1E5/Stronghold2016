@@ -54,6 +54,7 @@ public class Gamepad extends Joystick{
 		for(int i = 0; i < this.getButtonCount(); i++){
 			stuff += ((this.getRawButton(i)) ? 1 : 0) + ",";
 		}
+		stuff.substring(stuff.length()-2);
 		return stuff;
 	}
 }

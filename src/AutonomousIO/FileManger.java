@@ -13,20 +13,20 @@ public class FileManger {
 	//FIXME make fr and br global vars
 
 	@SuppressWarnings("unused")
-	private String path;
 	private ArrayList<String> lines = new ArrayList<>();
-	private File file;
-	public FileReader fr;
-	public BufferedReader br;
-	private FileWriter fw;
-	private BufferedWriter bw;
+/*SMB*/private String path;
+/*"*/private File file;
+/*"*/public FileReader fr;
+/*"*/public BufferedReader br;
+/*"*/private FileWriter fw;
+/*"*/private BufferedWriter bw;
 	
-	public FileManger(String path){
+/*SMB*/public FileManger(String path){
 		this.path = path;
 		file = new File(path);
 	}
 	
-	public void setPath(String path){
+/*SMB*/public void setPath(String path){
 		this.path = path;
 		file = new File(path);
 	}
@@ -100,15 +100,15 @@ public class FileManger {
 		}
 	}
 	
-	public String getLine(int lineNum){
+/*SMB?*/public String getLine(int lineNum){
 		return lines.get(lineNum);
 	}
 	
-	public int lineCount(){
+/*SMB?*/public int lineCount(){
 		return lines.size();
 	}
 	
-	public String[] parse(String data){
+/*SMB*/public String[] parse(String data){
 		return data.split(",");
 	}
 	
