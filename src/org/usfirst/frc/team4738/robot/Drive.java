@@ -3,16 +3,18 @@ package org.usfirst.frc.team4738.robot;
 import java.util.*;
 import edu.wpi.first.wpilibj.*;
 
+/**
+ * @author Everyone
+ */
 public class Drive {
 
 	private ArrayList<Talon> motors = new ArrayList<Talon>();
 	
-	/**
-	 * @author Stepen Barrack (who forgot what a constructor was)
+	/** 
+	 * This is a constructor you idiot - <3 Jacob
+	 * @author Stephen Barrack (who forgot what a constructor was)
 	 * @param ports switches between left and right motors for each input
 	 */
-	
-	//This is a constructor you idiot - <3 Jacob
 	public Drive(int... ports){
 		for (int port : ports) {
 			motors.add(new Talon(port));
@@ -20,7 +22,6 @@ public class Drive {
 	}
 	
 	/**
-	 * 
 	 * @param xAxis x-axis of the joystick
 	 * @param yAxis y-axis of the joystick
 	 */
@@ -32,7 +33,6 @@ public class Drive {
 	}
 	
 	/**
-	 * 
 	 * @param leftStick y-axis for left joystick
 	 * @param rightStick y-axis for left joystick
 	 */
@@ -44,7 +44,6 @@ public class Drive {
 	}
 	
 	/**
-	 * 
 	 * @param leftStick y-axis for left joystick
 	 * @param rightStick x-axis for right joystick
 	 */
@@ -56,7 +55,6 @@ public class Drive {
 	}
 	
 	/**
-	 * 
 	 * @param xAxis x-axis for the joystick
 	 * @param yAxis y-axis for the joystick
 	 */
@@ -64,7 +62,7 @@ public class Drive {
 		for (int i=0;i<motors.size();i+=2){
 			motors.get(i).set((yAxis+xAxis)*Math.abs(yAxis+xAxis));
 			motors.get(i+1).set((yAxis-xAxis)*Math.abs(yAxis-xAxis));
-
 		}
 	}
+	
 }
