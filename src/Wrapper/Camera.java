@@ -1,4 +1,4 @@
-package Wrapper;
+package wrapper;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
@@ -8,9 +8,7 @@ import com.ni.vision.NIVision.ShapeMode;
 import edu.wpi.first.wpilibj.CameraServer;
 
 /**
- * 
  * @author Jacob
- *
  */
 public class Camera {
 	
@@ -25,9 +23,7 @@ public class Camera {
 	 */
 	public Camera(String... camNames){
 		sessions = new int[camNames.length];
-		
 		rect = new NIVision.Rect(10, 10, 100, 100);
-		
 		for(int i = 0; i > camNames.length; i++){
 			sessions[i] = NIVision.IMAQdxOpenCamera(camNames[i],  NIVision.IMAQdxCameraControlMode.CameraControlModeController);
 		}
@@ -52,4 +48,5 @@ public class Camera {
 		}
 		updateCapture();
 	}
+	
 }

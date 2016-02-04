@@ -1,16 +1,13 @@
-package Wrapper;
+package wrapper;
 
 /**
- * 
  * @author Garret
- *
  */
 public class Stick {
 
 	double X, Y;
 	
 	/**
-	 * 
 	 * @param X Value of x-axis.
 	 * @param Y Value of y-axis.
 	 */
@@ -20,7 +17,6 @@ public class Stick {
 	}
 	
 	/**
-	 * 
 	 * @return Value of x-axis.
 	 */
 	public double getX(){
@@ -28,7 +24,6 @@ public class Stick {
 	}
 	
 	/**
-	 * 
 	 * @return Value of y-axis.
 	 */
 	public double getY(){
@@ -36,7 +31,6 @@ public class Stick {
 	}
 	
 	/**
-	 * 
 	 * @param X Value of x-axis.
 	 */
 	public void setX(double X){
@@ -44,11 +38,10 @@ public class Stick {
 	}
 	
 	/**
-	 * 
 	 * @param Y Value of y-axis.
 	 */
 	public void setY(double Y){
 		this.Y = Y; 
-		
 	}
+	
 }

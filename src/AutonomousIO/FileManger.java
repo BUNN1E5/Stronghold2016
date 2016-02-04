@@ -1,15 +1,25 @@
-package AutonomousIO;
+package autonomousIO;
 
 import java.io.*;
 import java.util.*;
 
+/**
+ * FIXME Delete this crap and remake it.
+ * @author Jake
+ *
+ */
 public class FileManger {
 
 	//FIXME make fr and br global vars
 
+	@SuppressWarnings("unused")
 	private String path;
 	private ArrayList<String> lines = new ArrayList<>();
 	private File file;
+	public FileReader fr;
+	public BufferedReader br;
+	private FileWriter fw;
+	private BufferedWriter bw;
 	
 	public FileManger(String path){
 		this.path = path;
@@ -26,8 +36,8 @@ public class FileManger {
 			if(!file.exists()){
 				return;
 			}
-			FileReader fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
 			String tmp;
 			while((tmp = br.readLine()) != null){
 				addData(tmp);
@@ -45,15 +55,15 @@ public class FileManger {
 		return "";
 	}
 	
-	//TODO write this horribly inefficeint method
+	//TODO write this horribly inefficient method
 	public String readLine(int line){
 		return "";
 	}
 	
 	public void appendToFile(String data){
 		try{	
-			FileWriter fw = new FileWriter(file, true);
-			BufferedWriter bw = new BufferedWriter(fw);
+			fw = new FileWriter(file, true);
+			bw = new BufferedWriter(fw);
 			
 			addData(data);
 			bw.write(data);
@@ -75,8 +85,8 @@ public class FileManger {
 			file.delete();
 			file.createNewFile();
 			
-			FileWriter fw = new FileWriter(file);
-			BufferedWriter bw = new BufferedWriter(fw);
+			fw = new FileWriter(file);
+			bw = new BufferedWriter(fw);
 			
 			for(String data : lines){
 				bw.write(data);

@@ -1,9 +1,7 @@
-package Wrapper;
+package wrapper;
 
 /**
- * TODO: Descriptions for parameters.
- * @author Senpai says hi Sean!
- *
+ * Senpai says hi! -Stephen
  */
 public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
 	
@@ -46,4 +44,5 @@ public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
 			}
 		}
 	}
+	
 }

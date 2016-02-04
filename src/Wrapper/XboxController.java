@@ -1,9 +1,7 @@
-package Wrapper;
+package wrapper;
 
 /**
- * 
- * @author Owen (and a little bit of Stephen)
- *
+ * @author Owen
  */
 public class XboxController extends Gamepad {
 	
@@ -11,7 +9,6 @@ public class XboxController extends Gamepad {
 	public enum Direction {N, NE, E, SE, S, SW, W, NW};
 	
 	/**
-	 * 
 	 * @param port Port the controller is in.
 	 */
 	public XboxController(int port) {
@@ -19,7 +16,6 @@ public class XboxController extends Gamepad {
 	}
 	
 	/**
-	 * 
 	 * @return Returns the axis values of the left stick.
 	 */
 	public Stick getLeftStick(){
@@ -27,7 +23,6 @@ public class XboxController extends Gamepad {
 	}
 	
 	/**
-	 * 
 	 * @return Returns axis values of the right stick.
 	 */
 	public Stick getRightStick(){
@@ -35,7 +30,6 @@ public class XboxController extends Gamepad {
 	}
 	
 	/**
-	 * 
 	 * @return Returns the axis value of the left trigger button.
 	 */
 	public double getLeftTrigger(){ 
@@ -43,7 +37,6 @@ public class XboxController extends Gamepad {
 	}
 	
 	/**
-	 * 
 	 * @return Returns the axis value of the right trigger button.
 	 */
 	public double getRightTrigger(){ 
@@ -51,7 +44,6 @@ public class XboxController extends Gamepad {
 	}
 	
 	/**
-	 * 
 	 * @param button The button in question.
 	 * @return Returns the button state.
 	 */
@@ -78,15 +70,11 @@ public class XboxController extends Gamepad {
 	}
 	
 	/**
-	 * 
 	 * @param direction The direction the d-pad is being pressed.
 	 * @return If direction being pressed is direction it returns true, otherwise false.
 	 */
 	public boolean getDPad(XboxController.Direction direction){
 		return (this.getPOV() == direction.ordinal() * 45);
 	}
+	
 }
-	
-	
-
-	

@@ -1,19 +1,16 @@
-package Wrapper;
+package wrapper;
 
 /**
- * 
- * @author Owen & Stephen (un peqeno)
+ * @author Owen
  */
 public class Encoder{
 	
 	private final double ClicksPerRotation = 2048;
-	
 	public edu.wpi.first.wpilibj.Encoder encoder;
-	
+	@SuppressWarnings("unused")
 	private double radius, circumference, conversionFactor;
 	
 	/**
-	 * 
 	 * @param port1 Channel A
 	 * @param port2 Channel B
 	 */
@@ -23,7 +20,6 @@ public class Encoder{
 	}
 	
 	/**
-	 * 
 	 * @param port1 Channel A
 	 * @param port2 Channel B
 	 * @param radius Radius of the wheel.
@@ -36,7 +32,6 @@ public class Encoder{
 	}
 	
 	/**
-	 * 
 	 * @return The distance the encoder has spun based on the units of the radius.
 	 */
 	public double getDistance(){
@@ -52,7 +47,6 @@ public class Encoder{
 	}
 	
 	/**
-	 * 
 	 * @return Angle of rotation based on initial angle.
 	 */
 	public double getAngle(){

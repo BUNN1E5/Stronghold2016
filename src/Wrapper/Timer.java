@@ -1,5 +1,8 @@
-package Wrapper;
+package wrapper;
 
+/**
+ * @author Owen maybe
+ */
 public class Timer {
 	
 	double deltaTime = 0, startTime ;
@@ -9,7 +12,6 @@ public class Timer {
 	}
 	
 	/**
-	 * 
 	 * @return The current time on the timer.
 	 */
 	public double getTime(){
@@ -17,7 +19,6 @@ public class Timer {
 	}
 	
 	/**
-	 * 
 	 * @return The change in time.
 	 */
 	public double getDeltaTime(){
