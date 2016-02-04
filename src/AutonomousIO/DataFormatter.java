@@ -15,7 +15,7 @@ public class DataFormatter {
 	/**
 	 * @return The first line of data for each data file.
 	 */
-	public String firstLine(){
+	public static String firstLine(){
 		Date rhrn = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		
@@ -26,7 +26,7 @@ public class DataFormatter {
 	 * @param encoders Encoders to grab information from.
 	 * @return A line of data from the encoders to be written to the data file.
 	 */
-	public String encoderDataLine(HashMap<String,Encoder> encoders){
+	public static String encoderData(HashMap<String,Encoder> encoders){
 		String encoderData = "";
 		for(int i = 0; i < encoders.size(); i++){
 			encoderData += ((Encoder)(encoders.values().toArray()[i])).getSpeed() + ",";
@@ -41,7 +41,7 @@ public class DataFormatter {
 	 * @param xbox
 	 * @return
 	 */
-	public String controllerDataLine(XboxController xbox){
+	public String controllerData(XboxController xbox){
 		return xbox.toString();
 	}
 	

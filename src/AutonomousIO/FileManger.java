@@ -60,7 +60,7 @@ public class FileManger {
 		return "";
 	}
 	
-	public void appendToFile(String data){
+/*SMB*/public void appendToFile(String data){
 		try{	
 			fw = new FileWriter(file, true);
 			bw = new BufferedWriter(fw);
@@ -76,11 +76,11 @@ public class FileManger {
 		}
 	}
 	
-	public void addData(String data){
+/*SMB*/public void addData(String data){
 		lines.add(data);
 	}
 	
-	public void writeToFile(){
+/*SMB*/public void writeToFile(){
 		try{
 			file.delete();
 			file.createNewFile();
