@@ -24,7 +24,11 @@ public class Filer {
 	 * @return Returns the next line of data in the file or null if there's none left.
 	 * @throws IOException
 	 */
+<<<<<<< HEAD
 	public String readNextLine() throws IOException{
+=======
+	public String readFileLine() throws IOException{
+>>>>>>> origin/master
 		String s;
 		if((s = br.readLine()) != null)
 			return s;
