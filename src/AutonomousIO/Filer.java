@@ -7,19 +7,53 @@ import java.util.*;
 import wrapper.*;
 
 /**
- * TODO Add the grabber methods then delete FileManager and on to make the DataParser class.
  * Class for saving/reading data to & from our data files (like a file cabinet).
  * @author Ghjf544912
  */
 public class Filer {
 	
+	public enum fileType {GP, PID};
 	private String path;
 	private File file;
-	public enum fileType {GP, PID};
-	public FileReader fr;
-	public BufferedReader br;
+	private FileReader fr;
+	private BufferedReader br;
 	private FileWriter fw;
 	private BufferedWriter bw;
+	
+	/**
+	 * @return Returns the next line of data in the file or null if there's none left.
+	 * @throws IOException
+	 */
+	public String fileToString() throws IOException{
+		String s;
+		if((s = br.readLine()) != null)
+			return s;
+		br.close();
+		return null;
+	}
+	
+	/**
+	 * @deprecated
+	 * @throws IOException
+	 */
+	public void finishReading() throws IOException{
+		br.close();
+	}
+	
+	/**
+	 * @param path Path of the file to read from.
+	 * @return True if the file exists, false otherwise.
+	 * @throws IOException
+	 */
+	public boolean startRead(String path) throws IOException{
+		if(file.exists()){
+			fr = new FileReader(path);
+			br = new BufferedReader(fr);
+			br.readLine();			
+			return true;
+		}
+		return false;
+	}
 	
 	/**
 	 * Appends a line of encoder data to the file you're writing to.
@@ -42,6 +76,14 @@ public class Filer {
 	}
 	
 	/**
+	 * @deprecated
+	 * @throws IOException
+	 */
+	public void finishWriting() throws IOException{
+		bw.close();
+	}
+	
+	/**
 	 * Makes a new data file.
 	 * @throws IOException 
 	 */
@@ -58,9 +100,16 @@ public class Filer {
 	}
 	
 	/**
+	 * @return The path currently being used
+	 */
+	public String getPath(){
+		return this.path;
+	}
+	
+	/**
 	 * @param path File path to save/read the data from.
 	 */
-	public void path(String path){
+	public void setPath(String path){
 		this.path = path;
 		file = new File(path);
 	}
