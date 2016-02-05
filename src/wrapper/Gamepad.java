@@ -47,7 +47,7 @@ public class Gamepad extends Joystick{
 	 * @return The controller values in a formatted String.
 	 */
 	public String toString(){
-		String stuff="";
+		String stuff = "";
 		for(int i = 0; i < this.getAxisCount(); i++){
 			stuff += this.getRawAxis(i) + ",";
 		}
@@ -57,5 +57,5 @@ public class Gamepad extends Joystick{
 		stuff.substring(stuff.length()-2);
 		return stuff;
 	}
+	
 }
-

@@ -24,7 +24,7 @@ public class Filer {
 	 * @return Returns the next line of data in the file or null if there's none left.
 	 * @throws IOException
 	 */
-	public String fileToString() throws IOException{
+	public String readNextLine() throws IOException{
 		String s;
 		if((s = br.readLine()) != null)
 			return s;
@@ -60,7 +60,7 @@ public class Filer {
 	 * @param encoders The hash map of encoders you're using.
 	 * @throws IOException 
 	 */
-	public void encodersToFile(HashMap<String,Encoder> encoders) throws IOException{
+	public void writeNextEncoders(HashMap<String,Encoder> encoders) throws IOException{
 		bw.write(DataFormatter.encoderData(encoders));
 		bw.newLine();
 	}
@@ -70,7 +70,7 @@ public class Filer {
 	 * @param xbox
 	 * @throws IOException
 	 */
-	public void controllerToFile(XboxController xbox) throws IOException{
+	public void writeNextController(XboxController xbox) throws IOException{
 		bw.write(xbox.toString());
 		bw.newLine();
 	}
@@ -123,9 +123,9 @@ public class Filer {
 		Date rhrn = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy HH_mm_ss");
 		if(usb)
-			this.path = "/U/RobotData/"+dateFormat.format(rhrn)+" "+a+".auto";
+			this.path = "/U/RobotData/"+dateFormat.format(rhrn)+"."+a;
 		else
-			this.path = "/home/lvuser/Data/"+dateFormat.format(rhrn)+" "+a+".auto";
+			this.path = "/home/lvuser/Data/"+dateFormat.format(rhrn)+"."+a;
 		file = new File(path);
 	}
 	
@@ -136,7 +136,7 @@ public class Filer {
 	public void setDefaultPath(fileType a){
 		Date rhrn = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy HH_mm_ss");
-		this.path = "/home/lvuser/Data/"+dateFormat.format(rhrn)+" "+a+".auto";
+		this.path = "/home/lvuser/Data/"+dateFormat.format(rhrn)+"."+a;
 		file = new File(path);
 	}
 

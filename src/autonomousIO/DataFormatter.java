@@ -1,8 +1,7 @@
 package autonomousIO;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 import wrapper.*;
 
@@ -36,10 +35,9 @@ public class DataFormatter {
 	}
 	
 	/**
-	 * @author Ghjf544912
 	 * @deprecated
-	 * @param xbox
-	 * @return
+	 * @param xbox Controller to take data from.
+	 * @return The controller's data in a formatted string.
 	 */
 	public String controllerData(XboxController xbox){
 		return xbox.toString();
