@@ -6,7 +6,7 @@ package wrapper;
 public class Encoder{
 	
 	private final double ClicksPerRotation = 2048;
-	public edu.wpi.first.wpilibj.Encoder encoder;
+	public static edu.wpi.first.wpilibj.Encoder encoder;
 	@SuppressWarnings("unused")
 	private double radius, circumference, conversionFactor;
 	
@@ -55,7 +55,7 @@ public class Encoder{
 		return (clicks * ClicksPerRotation) / conversionFactor;
 	}
 	
-	public void reset(){
+	public static void reset(){
 		encoder.reset();
 	}
 	

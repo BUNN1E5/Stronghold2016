@@ -14,22 +14,25 @@ public class Filer {
 	
 	public enum fileType {GP, PID};
 	private String path;
-	private File file;
-	private FileReader fr;
-	private BufferedReader br;
-	private FileWriter fw;
-	private BufferedWriter bw;
+	private static String lastPath;
+	private static File file;
+	private static FileReader fr;
+	private static BufferedReader br;
+	private static FileWriter fw;
+	private static BufferedWriter bw;
 	
 	/**
 	 * @return Returns the next line of data in the file or null if there's none left.
 	 * @throws IOException
 	 */
-	public String readNextLine() throws IOException{
+	public static String readNextLine() throws IOException{
 		String s;
 		if((s = br.readLine()) != null)
 			return s;
-		br.close();
-		return null;
+		else{
+			br.close();
+			return null;
+		}
 	}
 	
 	/**
@@ -45,7 +48,7 @@ public class Filer {
 	 * @return True if the file exists, false otherwise.
 	 * @throws IOException
 	 */
-	public boolean startRead(String path) throws IOException{
+	public static boolean startRead(String path) throws IOException{
 		if(file.exists()){
 			fr = new FileReader(path);
 			br = new BufferedReader(fr);
@@ -70,7 +73,7 @@ public class Filer {
 	 * @param xbox
 	 * @throws IOException
 	 */
-	public void writeNextController(XboxController xbox) throws IOException{
+	public static void writeNextController(XboxController xbox) throws IOException{
 		bw.write(xbox.toString());
 		bw.newLine();
 	}
@@ -87,7 +90,7 @@ public class Filer {
 	 * Makes a new data file.
 	 * @throws IOException 
 	 */
-	public void makeFile() throws IOException{
+	public static void makeFile() throws IOException{
 		if(file.exists())
 			file.delete();
 		if(!file.mkdir())
@@ -107,11 +110,19 @@ public class Filer {
 	}
 	
 	/**
+	 * @return The path that was last used to write a file.
+	 */
+	public static String getLastPath(){
+		return lastPath;
+	}
+	
+	/**
 	 * @param path File path to save/read the data from.
 	 */
 	public void setPath(String path){
 		this.path = path;
 		file = new File(path);
+		Filer.lastPath = this.path;
 	}
 	
 	/**
@@ -123,21 +134,21 @@ public class Filer {
 		Date rhrn = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy HH_mm_ss");
 		if(usb)
-			this.path = "/U/RobotData/"+dateFormat.format(rhrn)+"."+a;
+			Filer.lastPath = "/U/RobotData/"+dateFormat.format(rhrn)+"."+a;
 		else
-			this.path = "/home/lvuser/Data/"+dateFormat.format(rhrn)+"."+a;
-		file = new File(path);
+			Filer.lastPath = "/home/lvuser/Data/"+dateFormat.format(rhrn)+"."+a;
+		file = new File(lastPath);
 	}
 	
 	/**
 	 * Sets the path automatically to save the data file.
 	 * @param a GP for a controller or PID for an encoder.
 	 */
-	public void setDefaultPath(fileType a){
+	public static void setDefaultPath(fileType a){
 		Date rhrn = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy HH_mm_ss");
-		this.path = "/home/lvuser/Data/"+dateFormat.format(rhrn)+"."+a;
-		file = new File(path);
+		Filer.lastPath = "/home/lvuser/Data/"+dateFormat.format(rhrn)+"."+a;
+		file = new File(lastPath);
 	}
 
 }

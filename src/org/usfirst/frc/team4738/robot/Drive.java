@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Drive {
 
-	private ArrayList<Talon> motors = new ArrayList<Talon>();
+	private static ArrayList<Talon> motors = new ArrayList<Talon>();
 	
 	/** 
 	 * This is a constructor you idiot - <3 Jacob
@@ -25,7 +25,7 @@ public class Drive {
 	 * @param xAxis x-axis of the joystick
 	 * @param yAxis y-axis of the joystick
 	 */
-	public void linearArcade(double xAxis, double yAxis){
+	public static void linearArcade(double xAxis, double yAxis){
 		for (int i = 0; i < motors.size(); i+=2) {
 			motors.get(i).set(yAxis + xAxis);
 			motors.get(i+1).set(yAxis - xAxis);
@@ -58,7 +58,7 @@ public class Drive {
 	 * @param xAxis x-axis for the joystick
 	 * @param yAxis y-axis for the joystick
 	 */
-	public void parabolicArcade(double xAxis, double yAxis){
+	public static void parabolicArcade(double xAxis, double yAxis){
 		for (int i=0;i<motors.size();i+=2){
 			motors.get(i).set((yAxis+xAxis)*Math.abs(yAxis+xAxis));
 			motors.get(i+1).set((yAxis-xAxis)*Math.abs(yAxis-xAxis));
