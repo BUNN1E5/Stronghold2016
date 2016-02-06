@@ -2,13 +2,16 @@ package autonomousIO;
 
 import java.io.IOException;
 
+import interfaces.XboxController;
+import wrapper.Gamepad.Direction;
 import wrapper.Stick;
+import wrapper.XboxController.Button;
 
 /**
  * Congratulations, we are now the proud owners of a robot that can drive itself :) almost...
  * @author Ghjf544912
  */
-public class DummyXbox{
+public class DummyXbox implements  XboxController{
 	
 	private DataParser parse;
 	private Filer filer;
@@ -54,6 +57,18 @@ public class DummyXbox{
 	 */
 	public boolean getButton(int index){
 		return parse.buttons.get(index);
+	}
+
+	@Override
+	public boolean getButton(Button button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean getPOV(Direction direction) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

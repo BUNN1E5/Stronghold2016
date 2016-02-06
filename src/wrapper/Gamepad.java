@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class Gamepad extends Joystick{
 	
+	public enum Direction {N, NE, E, SE, S, SW, W, NW};
+	
 	ToggleButton buttons[];
 	
 	/**
@@ -43,6 +45,14 @@ public class Gamepad extends Joystick{
 	}
 	
 	/**
+	 * @param direction The direction the d-pad is being pressed.
+	 * @return If direction being pressed is direction it returns true, otherwise false.
+	 */
+	public boolean getPOV(Gamepad.Direction direction){
+		return (this.getPOV() == direction.ordinal() * 45);
+	}
+	
+	/**
 	 * @author Ghjf544912
 	 * @return The controller values in a formatted String.
 	 */
@@ -51,11 +61,12 @@ public class Gamepad extends Joystick{
 		for(int i = 0; i < this.getAxisCount(); i++){
 			stuff += this.getRawAxis(i) + ",";
 		}
-		for(int i = 0; i < this.getButtonCount(); i++){
-			stuff += ((this.getRawButton(i)) ? 1 : 0) + ",";
+		for(int i = 1; i < this.getButtonCount(); i++){
+			stuff += ((this.getRawButton(i))) + ",";
 		}
+		
 		stuff.substring(stuff.length()-2);
+		System.out.println(stuff);
 		return stuff;
 	}
-	
 }

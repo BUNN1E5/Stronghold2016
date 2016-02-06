@@ -11,7 +11,7 @@ public class DataParser {
 	private Scanner sc;
 	public ArrayList<Double> axes;
 	public ArrayList<Boolean> buttons;
-	public ArrayList<Double> pids;
+	public ArrayList<Double> encoders;
 	
 	/**
 	 * @param s String from Filer.readNextLine() to parse.
@@ -40,10 +40,8 @@ public class DataParser {
 			buttons.removeAll(buttons);
 		sc = new Scanner(s);
 		sc.useDelimiter(",");
-		int i;
 		while(sc.hasNextInt()){
-			i = sc.nextInt();
-			if(i == 1)
+			if(sc.nextInt() == 1)
 				buttons.add(true);
 			else
 				buttons.add(false);
@@ -57,16 +55,16 @@ public class DataParser {
 	 * @return An array list of doubles to be used as encoder speeds.
 	 */
 	public ArrayList<Double> getNextEncoders(String s){
-		pids = new ArrayList<Double>();
-		if(!pids.isEmpty())
-			pids.removeAll(pids);
+		encoders = new ArrayList<Double>();
+		if(!encoders.isEmpty())
+			encoders.removeAll(encoders);
 		sc = new Scanner(s);
 		sc.useDelimiter(",");
 		while(sc.hasNextDouble()){
-			pids.add(sc.nextDouble());
+			encoders.add(sc.nextDouble());
 		}
 		sc.close();
-		return pids;
+		return encoders;
 	}
 	
 }
