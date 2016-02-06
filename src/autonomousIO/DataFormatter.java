@@ -39,7 +39,7 @@ public class DataFormatter {
 	 * @param xbox Controller to take data from.
 	 * @return The controller's data in a formatted string.
 	 */
-	public String controllerData(XboxController xbox){
+	public static String controllerData(XboxController xbox){
 		return xbox.toString();
 	}
 	

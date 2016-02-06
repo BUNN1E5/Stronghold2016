@@ -8,16 +8,16 @@ import java.util.*;
  */
 public class DataParser {
 
-	private static Scanner sc;
-	private static ArrayList<Double> axes;
-	private ArrayList<Double> pids;
-	private ArrayList<Boolean> buttons;
+	private Scanner sc;
+	public ArrayList<Double> axes;
+	public ArrayList<Boolean> buttons;
+	public ArrayList<Double> pids;
 	
 	/**
 	 * @param s String from Filer.readNextLine() to parse.
 	 * @return An array list of doubles to be used as axis values.
 	 */
-	public static ArrayList<Double> getNextAxes(String s){
+	public ArrayList<Double> getNextAxes(String s){
 		axes = new ArrayList<Double>();
 		if(!axes.isEmpty())
 			axes.removeAll(axes);
