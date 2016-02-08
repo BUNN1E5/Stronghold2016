@@ -1,15 +1,17 @@
 package interfaces;
 
 import wrapper.Gamepad;
-import wrapper.Stick;
+import Enums.Directions;
+import Enums.XboxButtons;
+import wrapper.Axes;
 
 public interface XboxController {
 
-	Stick getLeftStick();
-	Stick getRightStick();
+	Axes getLeftStick();
+	Axes getRightStick();
 	double getRightTrigger();
 	double getLeftTrigger();
-	boolean getButton(wrapper.XboxController.Button button);
-	boolean getPOV(Gamepad.Direction direction);
+	boolean getButton(XboxButtons button);
+	boolean getPOV(Directions direction);
 	
 }

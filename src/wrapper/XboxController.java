@@ -1,11 +1,12 @@
 package wrapper;
 
+import Enums.Directions;
+import Enums.XboxButtons;
+
 /**
  * @author Owen
  */
 public class XboxController extends Gamepad implements interfaces.XboxController {
-	
-	public enum Button { A, B, X, Y, L, R, Select, Start, L3, R3};
 	
 	/**
 	 * @param port Port the controller is in.
@@ -17,15 +18,15 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	/**
 	 * @return Returns the axis values of the left stick.
 	 */
-	public Stick getLeftStick(){
-		return new Stick(this.getRawAxis(0), this.getRawAxis(1));
+	public Axes getLeftStick(){
+		return new Axes(this.getRawAxis(0), this.getRawAxis(1));
 	}
 	
 	/**
 	 * @return Returns axis values of the right stick.
 	 */
-	public Stick getRightStick(){
-		return new Stick(this.getRawAxis(4), this.getRawAxis(5));
+	public Axes getRightStick(){
+		return new Axes(this.getRawAxis(4), this.getRawAxis(5));
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	 * @param button The button in question.
 	 * @return Returns the button state.
 	 */
-	public boolean getButton(XboxController.Button button){
+	public boolean getButton(XboxButtons button){
 		return this.getRawButton(button.ordinal());
 	}
 	
@@ -55,7 +56,7 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	 * @param button The button being released.
 	 * @return Returns the state of the button being released.
 	 */
-	public boolean getButtonUp(XboxController.Button button){
+	public boolean getButtonUp(XboxButtons button){
 		return this.getButtonUp(button.ordinal() + 1);
 	}
 	
@@ -64,7 +65,7 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	 * @param button The button being pressed.
 	 * @return Returns the state of the button being pressed.
 	 */
-	public boolean getButtonDown(XboxController.Button button){
+	public boolean getButtonDown(XboxButtons button){
 		return this.getButtonDown(button.ordinal());
 	}
 	
@@ -72,8 +73,7 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	 * @param direction The direction the d-pad is being pressed.
 	 * @return If direction being pressed is direction it returns true, otherwise false.
 	 */
-	public boolean getDPad(Gamepad.Direction direction){
+	public boolean getDPad(Directions direction){
 		return this.getPOV(direction);
-	}
-	
+	}	
 }

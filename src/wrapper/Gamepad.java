@@ -1,15 +1,15 @@
 package wrapper;
 
+import Enums.Directions;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * Sorry Garett, I have a coworker who spells his name with double R single T so my bad. -Stephen
  * @author Garett Davis
  */
-public class Gamepad extends Joystick{
-	
-	public enum Direction {N, NE, E, SE, S, SW, W, NW};
-	
+public class Gamepad extends Joystick implements interfaces.Gamepad{
+	//TODO Refactor code so that gamePad doesn't extend joystick
+	//FIXME seriously do it
 	ToggleButton buttons[];
 	
 	/**
@@ -48,7 +48,7 @@ public class Gamepad extends Joystick{
 	 * @param direction The direction the d-pad is being pressed.
 	 * @return If direction being pressed is direction it returns true, otherwise false.
 	 */
-	public boolean getPOV(Gamepad.Direction direction){
+	public boolean getPOV(Directions direction){
 		return (this.getPOV() == direction.ordinal() * 45);
 	}
 	
@@ -68,5 +68,29 @@ public class Gamepad extends Joystick{
 		stuff.substring(stuff.length()-2);
 		System.out.println(stuff);
 		return stuff;
+	}
+
+	@Override
+	public float getAxis(int axis) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean getButton(int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean getUp(int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean getDown(int button) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

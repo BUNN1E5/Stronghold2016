@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.function.UnaryOperator;
 
+import Enums.Directions;
+import Enums.XboxButtons;
 import interfaces.XboxController;
-import wrapper.Gamepad.Direction;
-import wrapper.Stick;
-import wrapper.XboxController.Button;
+import wrapper.Axes;
 
 /**
  * Congratulations, we are now the proud owners of a robot that can drive itself :) almost...
@@ -47,15 +47,15 @@ public class DummyXbox implements  XboxController{
 	/**
 	 * @return Returns the axis values of the left stick.
 	 */
-	public Stick getLeftStick(){
-		return new Stick(parse.axes.get(0), parse.axes.get(1));
+	public Axes getLeftStick(){
+		return new Axes(parse.axes.get(0), parse.axes.get(1));
 	}
 	
 	/**
 	 * @return Returns axis values of the right stick.
 	 */
-	public Stick getRightStick(){
-		return new Stick(parse.axes.get(4), parse.axes.get(5));
+	public Axes getRightStick(){
+		return new Axes(parse.axes.get(4), parse.axes.get(5));
 	}
 	
 	/**
@@ -81,13 +81,13 @@ public class DummyXbox implements  XboxController{
 	}
 
 	@Override
-	public boolean getButton(Button button) {
+	public boolean getButton(XboxButtons button) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean getPOV(Direction direction) {
+	public boolean getPOV(Directions direction) {
 		// TODO Auto-generated method stub
 		return false;
 	}
