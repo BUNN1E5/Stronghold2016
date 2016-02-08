@@ -5,9 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import edu.wpi.first.wpilibj.command.StartCommand;
-import interfaces.XboxController;
-
 public class FileManager {
 
 	private final String ROBORIO_PATH ="/home/lvuser/Data/";
@@ -74,14 +71,20 @@ public class FileManager {
 		lines.addAll(br.lines().collect(Collectors.toList()));
 	}
 	
-	public Exception writeToFile(String data){
-		try{
-			bw.write(data);
-			bw.newLine();
-			return null;
-		} catch(Exception e){
-			return e;
-		}
+	Thread fileWrite;
+	
+	public void writeToFile(String data){
+		fileWrite = new Thread(new Runnable() {
+			public void run() {
+				try{
+					bw.write(data);
+					bw.newLine();
+				} catch(Exception e){
+					
+				}
+			}
+		});
+		fileWrite.start();
 	}
 	
 	public void closeWrite(){

@@ -2,6 +2,7 @@ package autonomousIO;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.function.UnaryOperator;
 
 import interfaces.XboxController;
 import wrapper.Gamepad.Direction;
@@ -19,7 +20,7 @@ public class DummyXbox implements  XboxController{
 	private String s;
 	private int index = 0;
 	
-	private boolean firstLoop = true;
+	private boolean firstEnd = true;
 	
 	public DummyXbox(FileManager fileManager){
 		this.fileManager = fileManager;
@@ -27,21 +28,20 @@ public class DummyXbox implements  XboxController{
 	}
 	
 	public void updateData(){
-		if(index < fileManager.lines.size()){
+		if(index < fileManager.lines.size() - 1){
 			s = fileManager.lines.get(index);
 			parse.getNextAxes(s);
 			parse.getNextButtons(s);
 			
 			index++;
-			if(firstLoop){
-				parse.axes.ensureCapacity(parse.axes.size());
-				parse.buttons.ensureCapacity(parse.buttons.size());
-				firstLoop = false;
-			}
-		} else{
-			parse.axes.clear();
-			parse.buttons.clear();
+		}else{
+			Collections.fill(parse.axes, 0.0);
+			Collections.fill(parse.buttons, false);
 		}
+	}
+	
+	public void resetIndex(){
+		index = 0;
 	}
 	
 	/**

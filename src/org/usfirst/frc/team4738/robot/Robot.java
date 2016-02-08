@@ -10,6 +10,7 @@ import autonomousIO.Filer;
 import autonomousIO.FileManager.FileType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import wrapper.Drive;
 import wrapper.XboxController;
 
 /**
@@ -20,8 +21,6 @@ import wrapper.XboxController;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-	//TODO fix crashing robot code
 	
 	private FileManager fileManager;
 	public XboxController xbox;
@@ -45,6 +44,7 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
     	fileManager.updateArrayList();
+    	dbox.resetIndex();
     }
 
     /**
