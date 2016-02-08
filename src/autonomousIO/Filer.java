@@ -23,6 +23,15 @@ public class Filer {
 	public boolean done;
 	
 	/**
+	 * Stephen you have to actually make the goddamn file -_-
+	 * @param usb
+	 * @throws IOException 
+	 */
+	public Filer() throws IOException{
+		setDefaultPath(Filer.fileType.GP);
+	}
+	
+	/**
 	 * @return Returns the next line of data in the file or null if there's none left.
 	 * @throws IOException
 	 */
@@ -96,7 +105,7 @@ public class Filer {
 			file.delete();
 		if(!file.mkdir())
 			file.mkdir();
-		file.createNewFile();
+		file = new File(lastPath);
 		fw = new FileWriter(file);
 		bw = new BufferedWriter(fw);
 		bw.write(DataFormatter.firstLine());

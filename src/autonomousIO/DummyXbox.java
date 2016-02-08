@@ -1,6 +1,7 @@
 package autonomousIO;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import interfaces.XboxController;
 import wrapper.Gamepad.Direction;
@@ -13,21 +14,41 @@ import wrapper.XboxController.Button;
  */
 public class DummyXbox implements  XboxController{
 	
+	private FileManager fileManager;
 	private DataParser parse;
-	private Filer filer;
 	private String s;
+	private int index = 0;
 	
-	public void updateData() throws IOException{
-		s = filer.readNextLine();
-		parse.getNextAxes(s);
-		parse.getNextButtons(s);
+	private boolean firstLoop = true;
+	
+	public DummyXbox(FileManager fileManager){
+		this.fileManager = fileManager;
+		parse = new DataParser();
+	}
+	
+	public void updateData(){
+		if(index < fileManager.lines.size()){
+			s = fileManager.lines.get(index);
+			parse.getNextAxes(s);
+			parse.getNextButtons(s);
+			
+			index++;
+			if(firstLoop){
+				parse.axes.ensureCapacity(parse.axes.size());
+				parse.buttons.ensureCapacity(parse.buttons.size());
+				firstLoop = false;
+			}
+		} else{
+			parse.axes.clear();
+			parse.buttons.clear();
+		}
 	}
 	
 	/**
 	 * @return Returns the axis values of the left stick.
 	 */
 	public Stick getLeftStick(){
-		return new Stick(parse.axes.get(0), parse.axes.get(0));
+		return new Stick(parse.axes.get(0), parse.axes.get(1));
 	}
 	
 	/**

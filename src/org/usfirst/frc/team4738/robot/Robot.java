@@ -5,7 +5,9 @@ import java.io.IOException;
 import autonomousIO.DataFormatter;
 import autonomousIO.DataParser;
 import autonomousIO.DummyXbox;
+import autonomousIO.FileManager;
 import autonomousIO.Filer;
+import autonomousIO.FileManager.FileType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import wrapper.XboxController;
@@ -19,7 +21,9 @@ import wrapper.XboxController;
  */
 public class Robot extends IterativeRobot {
 	
-	private Filer filer;
+	//TODO fix crashing robot code
+	
+	private FileManager fileManager;
 	public XboxController xbox;
 	public DummyXbox dbox;
 	public Drive drive;
@@ -31,36 +35,24 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	xbox = new XboxController(0);
-    	filer = new Filer();
-    	dbox = new DummyXbox();
+		fileManager = new FileManager("test", FileType.GP, false);
+    	dbox = new DummyXbox(fileManager);
     	drive = new Drive(0, 1);
-    	parse = new DataParser();
     }
         
 	/** 
 	 * This function is called once before autonomous
 	 */
     public void autonomousInit() {
-    	try {
-			filer.startRead(filer.getLastPath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	fileManager.updateArrayList();
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	try {
-			dbox.updateData();
-	    	drive.linearTank(parse.axes.get(0), parse.axes.get(4));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			SmartDashboard.putString("Errors", e.toString());
-		}
+    	dbox.updateData();
+    	drive.linearTank(dbox.getLeftStick().getY(), dbox.getRightStick().getY());
     }
     
     
@@ -79,26 +71,23 @@ public class Robot extends IterativeRobot {
     }
     
     public void testInit(){
-    	try {
-    		filer.setDefaultPath(Filer.fileType.GP);
-			filer.makeFile();		
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	SmartDashboard.putBoolean("Stop Recording Autonomous?", false);
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	try {
-    		drive.linearTank(xbox.getRawAxis(1), xbox.getRawAxis(5));
-			filer.writeNextController(xbox);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			SmartDashboard.putString("Errors", e.toString());
-		}
+    	drive.linearTank(xbox.getLeftStick().getY(), xbox.getRightStick().getY());
+    	
+    	if(fileManager.writeOpen){
+    		fileManager.writeToFile(xbox.toString());
+    	}
+    	
+    	if(SmartDashboard.getBoolean("Stop Recording Autonomous?")){
+    		fileManager.closeWrite();
+    	}
+    	
     }
     
 }
