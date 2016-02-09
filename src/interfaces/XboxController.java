@@ -5,7 +5,7 @@ import Enums.Directions;
 import Enums.XboxButtons;
 import wrapper.Axes;
 
-public interface XboxController {
+public interface XboxController extends Joystick{
 
 	Axes getLeftStick();
 	Axes getRightStick();

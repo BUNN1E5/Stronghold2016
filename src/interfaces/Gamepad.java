@@ -2,7 +2,7 @@ package interfaces;
 
 import Enums.Directions;
 
-public interface Gamepad {
+public interface Gamepad extends Joystick{
 	
 	public float getAxis(int axis);
 	public boolean getButton(int button);
