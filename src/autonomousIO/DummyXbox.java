@@ -87,9 +87,20 @@ public class DummyXbox implements  XboxController{
 	}
 
 	@Override
-	public boolean getPOV(Directions direction) {
+	public boolean getButtonDown(XboxButtons button) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
+	@Override
+	public boolean getButtonUp(XboxButtons button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean getDPad(Directions direction) {
+		// TODO Auto-generated method stub
+		return false;
+	}	
 }

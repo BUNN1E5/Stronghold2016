@@ -66,14 +66,13 @@ public class Robot extends IterativeRobot {
 	 */
     public void teleopInit() {
     	cam = new Camera("cam0", "cam1", "cam2");
-    	cam.start();
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	cam.updateCapture();
+    	//cam.updateCapture();
     	if(xbox.getButton(XboxButtons.A)){
     		cam.cycleCamera();
     	}
