@@ -78,19 +78,6 @@ public class Gamepad extends Joystick implements interfaces.Gamepad{
 
 	@Override
 	public boolean getButton(int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean getUp(int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean getDown(int button) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getRawButton(button);
 	}
 }

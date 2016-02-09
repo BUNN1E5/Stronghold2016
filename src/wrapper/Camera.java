@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 /**
  * @author Jacob
  */
-public class Camera{
+public class Camera extends Thread{
 	
 	int[] sessions;
 	Image frame;
@@ -31,12 +31,26 @@ public class Camera{
 		}
 		NIVision.IMAQdxStartAcquisition(sessions[camIndex]);
 		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
+		
+		startCapture();
 	}
 	
 	public void updateCapture(){
 		NIVision.IMAQdxGrab(sessions[camIndex], frame, 1);
 		//NIVision.imaqDrawShapeOnImage(frame, frame, rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
 		CameraServer.getInstance().setImage(frame);
+	}
+	
+	public void startCapture(){
+		new Runnable(){
+			
+			@Override
+			public void run() {
+				while(true){
+					updateCapture();
+				}
+			}
+		};
 	}
 	
 	public void changeCamera(int index){
@@ -54,5 +68,7 @@ public class Camera{
 	public void cycleCamera(){
 		changeCamera(camIndex+1);
 	}
+	
+	
 	
 }
