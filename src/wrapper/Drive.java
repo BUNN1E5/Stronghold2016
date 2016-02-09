@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Drive {
 
-	private static ArrayList<Talon> motors = new ArrayList<Talon>();
+	private static ArrayList<VictorSP> motors = new ArrayList<>();
 	
 	/** 
 	 * This is a constructor you idiot - <3 Jacob
@@ -17,7 +17,7 @@ public class Drive {
 	 */
 	public Drive(int... ports){
 		for (int port : ports) {
-			motors.add(new Talon(port));
+			motors.add(new VictorSP(port));
 		}
 	}
 	

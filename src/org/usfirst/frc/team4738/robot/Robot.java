@@ -55,6 +55,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
     	dbox.updateData();
     	drive.linearTank(dbox.getLeftStick().getY(), dbox.getRightStick().getY());
+    	
     }
     
     
@@ -79,22 +80,21 @@ public class Robot extends IterativeRobot {
     }
     
     public void testInit(){
-    	SmartDashboard.putBoolean("Stop Recording Autonomous?", false);
+    	
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	drive.linearTank(xbox.getLeftStick().getY(), xbox.getRightStick().getY());
-    	
-    	if(fileManager.writeOpen){
-    		fileManager.writeToFile(xbox.toString());
-    	}
-    	
-    	if(SmartDashboard.getBoolean("Stop Recording Autonomous?")){
-    		fileManager.closeWrite();
-    	}
+    	drive.linearTank(xbox.getLeftStick().getY(), xbox.getRightStick().getY()); 	
+    }
+    
+    public void disabledInit(){
+   
+    }
+    
+    public void diabledPeriodic(){
     	
     }
     
