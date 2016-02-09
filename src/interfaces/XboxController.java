@@ -12,6 +12,8 @@ public interface XboxController {
 	double getRightTrigger();
 	double getLeftTrigger();
 	boolean getButton(XboxButtons button);
-	boolean getPOV(Directions direction);
+	boolean getButtonDown(XboxButtons button);
+	boolean getButtonUp(XboxButtons button);
+	boolean getDPad(Directions direction);
 	
 }
