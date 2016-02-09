@@ -1,6 +1,6 @@
-/org/
-/autonomousIO/
-/wrapper/
-/robot/
-/interfaces/
 /Enums/
+/autonomousIO/
+/interfaces/
+/org/
+/robot/
+/wrapper/
