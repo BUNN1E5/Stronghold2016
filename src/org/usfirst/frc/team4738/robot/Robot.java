@@ -2,6 +2,7 @@ package org.usfirst.frc.team4738.robot;
 
 import java.io.IOException;
 
+import Enums.XboxButtons;
 import autonomousIO.DataFormatter;
 import autonomousIO.DataParser;
 import autonomousIO.DummyXbox;
@@ -10,6 +11,7 @@ import autonomousIO.Filer;
 import autonomousIO.FileManager.FileType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import wrapper.Camera;
 import wrapper.Drive;
 import wrapper.XboxController;
 
@@ -56,18 +58,24 @@ public class Robot extends IterativeRobot {
     }
     
     
+    Camera cam;
+    
     /**
 	 * This function is called once before during operator control
 	 */
     public void teleopInit() {
-
+    	cam = new Camera("cam0", "cam1", "cam2");
+    	cam.start();
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	
+    	cam.updateCapture();
+    	if(xbox.getButton(XboxButtons.A)){
+    		cam.cycleCamera();
+    	}
     }
     
     public void testInit(){

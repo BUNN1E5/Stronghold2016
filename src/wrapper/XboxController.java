@@ -48,7 +48,7 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	 * @return Returns the button state.
 	 */
 	public boolean getButton(XboxButtons button){
-		return this.getRawButton(button.ordinal());
+		return this.getRawButton(button.ordinal() + 1);
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	 * @return Returns the state of the button being pressed.
 	 */
 	public boolean getButtonDown(XboxButtons button){
-		return this.getButtonDown(button.ordinal());
+		return this.getButtonDown(button.ordinal() + 1);
 	}
 	
 	/**
