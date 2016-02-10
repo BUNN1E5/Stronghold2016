@@ -6,6 +6,7 @@ import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  * @author Jacob
@@ -17,6 +18,8 @@ public class Camera extends Thread{
 	int camIndex = 0;
 	NIVision.Rect rect;
 	
+	boolean cameraStarted = false;
+	
 	/**
 	 * TODO: Remove camNames.
 	 * @param camNames Names of cameras I guess.
@@ -27,12 +30,14 @@ public class Camera extends Thread{
 		rect = new NIVision.Rect(10, 10, 100, 100);
 		for(int i = 0; i < camNames.length; i++){
 			sessions[i] = NIVision.IMAQdxOpenCamera(camNames[i],  NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-			
+			//Can cause crashing!!!
+			NIVision.IMAQdxSetAttributeU32(sessions[i], "AcquisitionAttributes::VideoMode" , 0);
 		}
 		NIVision.IMAQdxStartAcquisition(sessions[camIndex]);
 		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
 		
-		startCapture();
+		start();
+		run();
 	}
 	
 	public void updateCapture(){
@@ -42,19 +47,31 @@ public class Camera extends Thread{
 	}
 	
 	public void startCapture(){
-		new Runnable(){
-			
-			@Override
-			public void run() {
-				while(true){
-					updateCapture();
-				}
-			}
-		};
+		cameraStarted = true;
+		start();
+	}
+	
+	public void stopCamera(){
+		cameraStarted = false;
+	}
+	
+	public void run(){
+		while(cameraStarted){
+			updateCapture();
+		}
+	}
+	
+	
+	/**
+	 * TODO Write this method
+	 */
+	public void stopCapture(){
+		
 	}
 	
 	public void changeCamera(int index){
 		NIVision.IMAQdxStopAcquisition(sessions[camIndex]);
+		NIVision.IMAQdxSetAttributeU32(sessions[camIndex], null, 93);
 		//NIVision.IMAQdxCloseCamera(sessions[camIndex]);
 
 		this.camIndex = index;
@@ -67,8 +84,5 @@ public class Camera extends Thread{
 	
 	public void cycleCamera(){
 		changeCamera(camIndex+1);
-	}
-	
-	
-	
+	}	
 }

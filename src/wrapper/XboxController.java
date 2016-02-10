@@ -1,7 +1,6 @@
 package wrapper;
 
-import Enums.Directions;
-import Enums.XboxButtons;
+import Enums.*;
 
 /**
  * @author Owen

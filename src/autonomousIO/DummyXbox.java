@@ -1,11 +1,8 @@
 package autonomousIO;
 
-import java.io.IOException;
 import java.util.Collections;
-import java.util.function.UnaryOperator;
 
-import Enums.Directions;
-import Enums.XboxButtons;
+import Enums.*;
 import interfaces.XboxController;
 import wrapper.Axes;
 
@@ -13,15 +10,13 @@ import wrapper.Axes;
  * Congratulations, we are now the proud owners of a robot that can drive itself :) almost...
  * @author Ghjf544912
  */
-public class DummyXbox implements  XboxController{
+public class DummyXbox extends DummyGamepad implements  XboxController{
 	
 	private FileManager fileManager;
 	private DataParser parse;
 	private String s;
 	private int index = 0;
-	
-	private boolean firstEnd = true;
-	
+		
 	public DummyXbox(FileManager fileManager){
 		this.fileManager = fileManager;
 		parse = new DataParser();
@@ -87,9 +82,20 @@ public class DummyXbox implements  XboxController{
 	}
 
 	@Override
-	public boolean getPOV(Directions direction) {
+	public boolean getButtonDown(XboxButtons button) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
+	@Override
+	public boolean getButtonUp(XboxButtons button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean getDPad(Directions direction) {
+		// TODO Auto-generated method stub
+		return false;
+	}	
 }
