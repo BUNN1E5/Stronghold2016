@@ -23,7 +23,7 @@ public class Filer {
 	public boolean done;
 	
 	/**
-	 * Stephen you have to actually make the goddamn file -_-
+	 * Um, i did. its called makeDirs() and .createFile()!
 	 * @param usb
 	 * @throws IOException 
 	 */

@@ -1,6 +1,5 @@
 package interfaces;
 
-import wrapper.Gamepad;
 import Enums.Directions;
 import Enums.XboxButtons;
 import wrapper.Axes;
