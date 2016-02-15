@@ -13,20 +13,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
 import wrapper.Camera;
 import wrapper.CameraGimbal;
+import wrapper.Drive;
 import wrapper.XboxController;
 
 public class Teleop extends IterativeRobot{
 	
 	XboxController controller;
-
-	//USBCamera camera;
+	Drive drive;
 	
 	public void teleopInit(){
 		controller = new XboxController(0);
+		drive = new Drive(0, 1);
 	}
 	
 	public void teleopPeriodic(){
 	
+		drive.parabolicArcade(controller.getLeftStick().getX(), controller.getLeftStick().getY());
+		
 		if(controller.getButtonDown(XboxButtons.A)){
 			RobotInit.cam.cycleCamera();
 		}
