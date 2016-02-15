@@ -9,8 +9,15 @@ import autonomousIO.DummyXbox;
 import autonomousIO.FileManager;
 import autonomousIO.Filer;
 import autonomousIO.FileManager.FileType;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.Autonomous;
+import robot.Disabled;
+import robot.RobotInit;
+import robot.Teleop;
+import robot.Test;
 import wrapper.Camera;
 import wrapper.Drive;
 import wrapper.XboxController;
@@ -24,77 +31,70 @@ import wrapper.XboxController;
  */
 public class Robot extends IterativeRobot {
 	
-	private FileManager fileManager;
-	public XboxController xbox;
-	public DummyXbox dbox;
-	public Drive drive;
-	public DataParser parse;
+	private Autonomous autonomous;
+	private Teleop teleop;
+	private Test test;
+	private RobotInit robotInit;
+	private Disabled disabled;
 	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	xbox = new XboxController(0);
-		fileManager = new FileManager("test", FileType.GP, false);
-    	dbox = new DummyXbox(fileManager);
-    	drive = new Drive(0, 1);
+    	robotInit = new RobotInit();
+    	teleop = new Teleop();
+    	autonomous = new Autonomous();
+    	test = new Test();
+    	disabled = new Disabled();
+    	robotInit.robotInit();
     }
         
 	/** 
 	 * This function is called once before autonomous
 	 */
     public void autonomousInit() {
-    	fileManager.updateArrayList();
-    	dbox.resetIndex();
+    	autonomous.autonomousInit();
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	dbox.updateData();
-    	drive.linearTank(dbox.getLeftStick().getY(), dbox.getRightStick().getY());
-    	
+    	autonomous.autonomousPeriodic();
     }
-    
-    
-    Camera cam;
     
     /**
 	 * This function is called once before during operator control
 	 */
     public void teleopInit() {
-    	cam = new Camera("cam0", "cam1", "cam2");
+    	teleop.teleopInit();
+    	
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	//cam.updateCapture();
-    	if(xbox.getButton(XboxButtons.A)){
-    		cam.cycleCamera();
-    	}
+    	teleop.teleopPeriodic();
     }
     
     public void testInit(){
-    	
+    	test.testInit();
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	drive.linearTank(xbox.getLeftStick().getY(), xbox.getRightStick().getY()); 	
+    	test.teleopPeriodic();
     }
     
     public void disabledInit(){
-   
+    	disabled.disabledInit();
     }
     
     public void diabledPeriodic(){
-    	
+    	disabled.disabledPeriodic();
     }
-    
 }
