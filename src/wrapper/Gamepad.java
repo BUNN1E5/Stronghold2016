@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
  */
 public class Gamepad implements interfaces.Gamepad{
-	//TODO Refactor code so that gamePad doesn't extend joystick
-	//FIXME seriously do it
+
 	ToggleButton buttons[];
 	Joystick joystick;
 	/**
@@ -19,6 +18,10 @@ public class Gamepad implements interfaces.Gamepad{
 	public Gamepad(int port) {
 		joystick = new Joystick(port);
 		buttons = new ToggleButton[joystick.getButtonCount()];
+		
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i] = new ToggleButton();
+		}
 	}
 	
 	/**
@@ -76,7 +79,7 @@ public class Gamepad implements interfaces.Gamepad{
 		for(int i = 1; i < joystick.getButtonCount(); i++){
 			stuff += ((joystick.getRawButton(i))) + ",";
 		}
-		
+		stuff += joystick.getPOV();
 		stuff.substring(stuff.length()-2);
 		System.out.println(stuff);
 		return stuff;

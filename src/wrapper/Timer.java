@@ -5,7 +5,7 @@ package wrapper;
  */
 public class Timer {
 	
-	double deltaTime = 0, startTime ;
+	double deltaTime = 0, startTime;
 	
 	public void start() {
 		startTime = System.currentTimeMillis();	

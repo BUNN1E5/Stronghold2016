@@ -1,5 +1,7 @@
 package wrapper;
 
+import Utils.Mathd;
+import Utils.MovingAverage;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,10 +10,13 @@ public class CameraGimbal {
 	
 	private Servo panServo, tiltServo;
 	public AnalogGyro gyro;
+	public MovingAverage averageX, averageY;
 	
 	public CameraGimbal(int panPort, int tiltPort){
 		panServo = new Servo(panPort);		
 		tiltServo = new Servo(tiltPort);
+		averageX = new MovingAverage(3);
+		averageY = new MovingAverage(3);
 	}
 	
 	/**
@@ -24,16 +29,18 @@ public class CameraGimbal {
 		panServo = new Servo(panPort);		
 		tiltServo = new Servo(tiltPort);
 		gyro = new AnalogGyro(gyroPort);
+		averageX = new MovingAverage(3);
+		averageY = new MovingAverage(3);
 		
 	}
 	
 	
 	public void setPan(double pan){
-		panServo.set((pan + 1) / 2);
+		panServo.set(averageX.average((pan + 1) / 2));
 	}
 	
 	public void setTilt(double tilt){
-		tiltServo.set(((tilt) + 1) / 2);
+		tiltServo.set(averageY.average((tilt + 1) / 2));
 	}
 	
 	public void setPosition(double pan, double tilt){
@@ -43,11 +50,11 @@ public class CameraGimbal {
 	
 	
 	public double getPan(){
-		return panServo.get();
+		return (panServo.get() * 2) - 1;
 	}
 	
 	public double getTilt(){
-		return tiltServo.get();
+		return (tiltServo.get() * 2) - 1;
 	}
 	
 	/**

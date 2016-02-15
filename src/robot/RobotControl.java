@@ -6,7 +6,7 @@ import interfaces.Joystick;
 
 public class RobotControl {
 	
-	public HashMap<String, Joystick> sticks = new HashMap<>();
+	public HashMap<String, Joystick> controls = new HashMap<>();
 	
 	public RobotControl(){
 		

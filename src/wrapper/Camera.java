@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 /**
  * @author Jacob
  */
-public class Camera extends Thread{
+public class Camera{
 	
 	int[] sessions;
 	Image frame;
@@ -20,24 +20,25 @@ public class Camera extends Thread{
 	
 	boolean cameraStarted = false;
 	
+	Thread camThread;
+	
 	/**
 	 * TODO: Remove camNames.
 	 * @param camNames Names of cameras I guess.
 	 */
 	public Camera(String... camNames){
-		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB_U64, 0);
 		sessions = new int[camNames.length];
 		rect = new NIVision.Rect(10, 10, 100, 100);
 		for(int i = 0; i < camNames.length; i++){
 			sessions[i] = NIVision.IMAQdxOpenCamera(camNames[i],  NIVision.IMAQdxCameraControlMode.CameraControlModeController);
 			//Can cause crashing!!!
-			NIVision.IMAQdxSetAttributeU32(sessions[i], "AcquisitionAttributes::VideoMode" , 0);
+			//NIVision.IMAQdxSetAttributeU32(sessions[i], "AcquisitionAttributes::VideoMode" , 0);
 		}
 		NIVision.IMAQdxStartAcquisition(sessions[camIndex]);
 		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
-		
-		start();
-		run();
+		//startCapture();
+		//run();
 	}
 	
 	public void updateCapture(){
@@ -48,30 +49,32 @@ public class Camera extends Thread{
 	
 	public void startCapture(){
 		cameraStarted = true;
-		start();
-	}
-	
-	public void stopCamera(){
-		cameraStarted = false;
-	}
-	
-	public void run(){
-		while(cameraStarted){
-			updateCapture();
-		}
-	}
-	
-	
-	/**
-	 * TODO Write this method
-	 */
-	public void stopCapture(){
 		
+		camThread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(cameraStarted){
+					try{
+					updateCapture();
+					System.out.println("Camera Updated");
+					} catch(Exception e){
+						System.out.println("HOLY SHIZZLE WHY DA FAQ DO YOU NOT WANNA WORK YOU LITTLE BITCH!!!");
+						System.out.println(e.toString());
+					}
+				}
+			}
+		});
+		camThread.setName("CamThread");
+		camThread.start();
+	}
+	
+	public void stopCapture(){
+		cameraStarted = false;
 	}
 	
 	public void changeCamera(int index){
 		NIVision.IMAQdxStopAcquisition(sessions[camIndex]);
-		NIVision.IMAQdxSetAttributeU32(sessions[camIndex], null, 93);
 		//NIVision.IMAQdxCloseCamera(sessions[camIndex]);
 
 		this.camIndex = index;

@@ -9,7 +9,9 @@ import autonomousIO.DummyXbox;
 import autonomousIO.FileManager;
 import autonomousIO.Filer;
 import autonomousIO.FileManager.FileType;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Autonomous;
 import robot.Disabled;
@@ -41,6 +43,10 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	robotInit = new RobotInit();
+    	teleop = new Teleop();
+    	autonomous = new Autonomous();
+    	test = new Test();
+    	disabled = new Disabled();
     	robotInit.robotInit();
     }
         
@@ -48,7 +54,6 @@ public class Robot extends IterativeRobot {
 	 * This function is called once before autonomous
 	 */
     public void autonomousInit() {
-    	autonomous = new Autonomous();
     	autonomous.autonomousInit();
     }
 
@@ -63,8 +68,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called once before during operator control
 	 */
     public void teleopInit() {
-    	teleop = new Teleop();
     	teleop.teleopInit();
+    	
     }
 
     /**
@@ -75,7 +80,6 @@ public class Robot extends IterativeRobot {
     }
     
     public void testInit(){
-    	test = new Test();
     	test.testInit();
     }
     
@@ -87,12 +91,10 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledInit(){
-    	disabled = new Disabled();
     	disabled.disabledInit();
     }
     
     public void diabledPeriodic(){
     	disabled.disabledPeriodic();
     }
-    
 }
