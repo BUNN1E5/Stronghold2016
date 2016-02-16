@@ -68,7 +68,7 @@ public class FileManager {
 	}
 	
 	public void updateArrayList(){
-		lines.addAll(br.lines().collect(Collectors.toList()));
+		//lines.addAll(br.lines().collect(Collectors.toList()));
 	}
 	
 	Thread fileWrite;
@@ -77,7 +77,7 @@ public class FileManager {
 		fileWrite = new Thread(new Runnable() {
 			public void run() {
 				try{
-					bw.write(data);
+					//bw.write(data);
 					bw.newLine();
 				} catch(Exception e){
 					

@@ -6,11 +6,19 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class CameraGimbal {
 	
 	private Servo panServo, tiltServo;
 	public AnalogGyro gyro;
 	public MovingAverage averageX, averageY;
+	
+	Timer gyroUpdateScheduler;
+	Thread gimbalThread;
+	
+	boolean gyroStabilizing = false;
 	
 	public CameraGimbal(int panPort, int tiltPort){
 		panServo = new Servo(panPort);		
@@ -64,9 +72,36 @@ public class CameraGimbal {
 		try{
 			setTilt((gyro.getAngle() / 90));
 		} catch(NullPointerException e){
-			System.err.println("I FRICKEN SAID DON'T RUN THIS IF YOU DON'T HAVE A GYRO YOU IDIOT!!!!");
+			System.err.println("I FRICKEN SAID DON'T RUN THIS IF YOU DON'T HAVE A GYRO YOU IDIOT!!!!!");
 		}
-		
+	
 	}
 	
+	public void startGyroStabilization(){		  
+		gyroStabilizing = true;
+		gyroUpdateScheduler = new Timer();
+		
+		gimbalThread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				gyroUpdateScheduler.scheduleAtFixedRate(new TimerTask() {
+					
+					@Override
+					public void run() {
+						setTiltBasedOnGyro();
+						
+					}
+				}, 0, 1);
+			}
+		});
+		
+		gimbalThread.setName("Gimbal Thread");
+		gimbalThread.start();
+	}
+	
+	public void stopGyroStabilization(){
+		gyroStabilizing = false;
+		
+	}
 }

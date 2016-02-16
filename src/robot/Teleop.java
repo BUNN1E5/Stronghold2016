@@ -20,10 +20,13 @@ public class Teleop extends IterativeRobot{
 	
 	XboxController controller;
 	Drive drive;
-	
+	CameraGimbal gimbal;
 	public void teleopInit(){
 		controller = new XboxController(0);
 		drive = new Drive(0, 1);
+		gimbal = new CameraGimbal(2, 3, 0);
+		controller = new XboxController(0);
+		gimbal.startGyroStabilization();
 	}
 	
 	public void teleopPeriodic(){
