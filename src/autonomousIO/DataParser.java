@@ -2,6 +2,8 @@ package autonomousIO;
 
 import java.util.*;
 
+import Enums.ControllerTypes;
+
 /**
  * Class dedicated to parsing data from data files to be used to control the robot.
  * @author Ghjf544912
@@ -12,6 +14,17 @@ public class DataParser {
 	public ArrayList<Double> axes;
 	public ArrayList<Boolean> buttons;
 	public ArrayList<Double> encoders;
+	
+	public ControllerTypes getControllerType(){
+		if(buttons.size()==10)
+			return ControllerTypes.Xbox;
+		else if(buttons.size()==11)
+			return ControllerTypes.Attack3;
+		else if(buttons.size()==12)
+			return ControllerTypes.X3D;
+		else
+			return ControllerTypes.GP;
+	}
 	
 	/**
 	 * @param s String from Filer.readNextLine() to parse.
