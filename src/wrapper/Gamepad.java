@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * Sorry Garett, I have a coworker who spells his name with double R single T so my bad. -Stephen
- * @author Garett Davis
+ * @author Sir Garett Davis supreme overlord of the nether realm (^u^)
 
  */
 public class Gamepad implements interfaces.Gamepad{
@@ -18,7 +18,6 @@ public class Gamepad implements interfaces.Gamepad{
 	public Gamepad(int port) {
 		joystick = new Joystick(port);
 		buttons = new ToggleButton[joystick.getButtonCount()];
-		
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new ToggleButton();
 		}
