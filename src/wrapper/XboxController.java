@@ -1,6 +1,6 @@
 package wrapper;
 
-import enums.*;
+import Enums.*;
 
 /**
  * @author Owen

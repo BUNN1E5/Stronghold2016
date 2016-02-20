@@ -2,7 +2,8 @@ package autonomousIO;
 
 import java.util.Collections;
 
-import enums.Directions;
+import Enums.ControllerType;
+import Enums.Directions;
 import interfaces.Gamepad;
 import wrapper.ToggleButton;
 
@@ -68,6 +69,20 @@ public class DummyGamepad implements Gamepad{
 	@Override
 	public boolean getPOV(Directions direction){
 		return (parse.pov == direction.ordinal() * 45);
+	}
+
+	@Override
+	public ControllerType getControllerType(){
+		if(buttons == null){
+			return ControllerType.GP;
+		}
+		
+		for(ControllerType type : ControllerType.values()){
+			if(type.getButtonCount() == parse.buttons.size()){
+				return type;
+			}
+		}
+		return ControllerType.GP;
 	}
 
 }

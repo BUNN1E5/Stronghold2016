@@ -1,7 +1,7 @@
 package interfaces;
 
-import enums.Directions;
-import enums.XboxButtons;
+import Enums.Directions;
+import Enums.XboxButtons;
 import wrapper.Axes;
 
 public interface XboxController extends Joystick{
