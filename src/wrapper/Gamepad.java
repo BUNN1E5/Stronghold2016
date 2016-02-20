@@ -1,7 +1,7 @@
 package wrapper;
 
-import Enums.Directions;
 import edu.wpi.first.wpilibj.Joystick;
+import enums.Directions;
 
 /**
  * Sorry Garett, I have a coworker who spells his name with double R single T so my bad. -Stephen
@@ -17,8 +17,8 @@ public class Gamepad implements interfaces.Gamepad{
 	 */
 	public Gamepad(int port) {
 		joystick = new Joystick(port);
-		buttons = new ToggleButton[joystick.getButtonCount()];
-		for (int i = 0; i < buttons.length; i++) {
+		buttons = new ToggleButton[joystick.getButtonCount() + 1];
+		for (int i = 0; i <= buttons.length; i++) {
 			buttons[i] = new ToggleButton();
 		}
 	}
@@ -28,7 +28,7 @@ public class Gamepad implements interfaces.Gamepad{
 	 * @return Returns opposite state from when button was previously toggled.
 	 */
 	public boolean getToggle(int button){
-		return buttons[button].getDownToggle(joystick.getRawButton(button));
+		return buttons[button].getDownToggle(joystick.getRawButton(button + 1));
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class Gamepad implements interfaces.Gamepad{
 	 * @return Returns true on the button press.
 	 */
 	public boolean getButtonDown(int button) {
-		return buttons[button].getDown(joystick.getRawButton(button));
+		return buttons[button].getDown(joystick.getRawButton(button + 1));
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class Gamepad implements interfaces.Gamepad{
 	 * @return Returns true on the button's release.
 	 */
 	public boolean getButtonUp(int button) {
-		return buttons[button].getUp(joystick.getRawButton(button));
+		return buttons[button].getUp(joystick.getRawButton(button + 1));
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class Gamepad implements interfaces.Gamepad{
 
 	@Override
 	public boolean getButton(int button) {
-		return joystick.getRawButton(button);
+		return joystick.getRawButton(button + 1);
 	}
 	
 	/**

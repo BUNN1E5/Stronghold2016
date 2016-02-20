@@ -2,7 +2,7 @@ package autonomousIO;
 
 import java.util.Collections;
 
-import Enums.*;
+import enums.*;
 import interfaces.XboxController;
 import wrapper.Axes;
 
@@ -11,32 +11,9 @@ import wrapper.Axes;
  * @author Ghjf544912
  */
 public class DummyXbox extends DummyGamepad implements  XboxController{
-	
-	private FileManager fileManager;
-	private DataParser parse;
-	private String s;
-	private int index = 0;
 		
 	public DummyXbox(FileManager fileManager){
-		this.fileManager = fileManager;
-		parse = new DataParser();
-	}
-	
-	public void updateData(){
-		if(index < fileManager.lines.size() - 1){
-			s = fileManager.lines.get(index);
-			parse.getNextAxes(s);
-			parse.getNextButtons(s);
-			
-			index++;
-		}else{
-			Collections.fill(parse.axes, 0.0);
-			Collections.fill(parse.buttons, false);
-		}
-	}
-	
-	public void resetIndex(){
-		index = 0;
+		super(fileManager);
 	}
 	
 	/**
@@ -66,36 +43,25 @@ public class DummyXbox extends DummyGamepad implements  XboxController{
 	public double getRightTrigger(){ 
 		return parse.axes.get(3);
 	}
-	
-	/**
-	 * @param button The button in question.
-	 * @return Returns the button state.
-	 */
-	public boolean getButton(int index){
-		return parse.buttons.get(index);
-	}
 
 	@Override
 	public boolean getButton(XboxButtons button) {
-		// TODO Auto-generated method stub
-		return false;
+		return getButton(button.ordinal());
 	}
 
 	@Override
 	public boolean getButtonDown(XboxButtons button) {
-		// TODO Auto-generated method stub
-		return false;
+		return getButtonDown(button.ordinal());
 	}
 
 	@Override
 	public boolean getButtonUp(XboxButtons button) {
-		// TODO Auto-generated method stub
-		return false;
+		return getButtonUp(button.ordinal());
 	}
-
+	
 	@Override
 	public boolean getDPad(Directions direction) {
-		// TODO Auto-generated method stub
-		return false;
-	}	
+		return getPOV(direction);
+	}
+
 }

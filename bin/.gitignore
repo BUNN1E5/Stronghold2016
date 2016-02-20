@@ -1,7 +1,5 @@
-/robot/
-/wrapper/
-/org/
 /autonomousIO/
-/Utils/
+/wrapper/
+/enums/
 /interfaces/
-/Enums/
+/utils/

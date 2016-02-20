@@ -1,10 +1,10 @@
 package wrapper;
 
-import Utils.Mathd;
-import Utils.MovingAverage;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import utils.Mathd;
+import utils.MovingAverage;
 
 import java.util.Timer;
 import java.util.TimerTask;

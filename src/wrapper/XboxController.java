@@ -1,6 +1,6 @@
 package wrapper;
 
-import Enums.*;
+import enums.*;
 
 /**
  * @author Owen
@@ -33,23 +33,21 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 
 	@Override
 	public boolean getButton(XboxButtons button) {
-		return this.getButton(button.ordinal() + 1);
+		return this.getButton(button.ordinal());
 	}
 
 	@Override
 	public boolean getButtonDown(XboxButtons button) {
-		return this.getButtonDown(button.ordinal() +1);
+		return this.getButtonDown(button.ordinal());
 	}
 
 	@Override
 	public boolean getButtonUp(XboxButtons button) {
-		return this.getButtonUp( button.ordinal() + 1);
+		return this.getButtonUp( button.ordinal());
 	}
 
 	@Override
 	public boolean getDPad(Directions direction) {
-		return this.getDPad(direction);
+		return this.getPOV(direction);
 	}
-	
-	
 }
