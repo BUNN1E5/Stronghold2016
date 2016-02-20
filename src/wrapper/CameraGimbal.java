@@ -3,12 +3,11 @@ package wrapper;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import utils.Mathd;
+import utils.MovingAverage;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
-import Utils.Mathd;
-import Utils.MovingAverage;
 
 public class CameraGimbal {
 	

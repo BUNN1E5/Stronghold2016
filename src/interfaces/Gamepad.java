@@ -1,7 +1,6 @@
 package interfaces;
 
-import Enums.ControllerType;
-import Enums.Directions;
+import enums.Directions;
 
 public interface Gamepad extends Joystick{
 	
