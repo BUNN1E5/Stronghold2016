@@ -77,7 +77,15 @@ public class CameraGimbal {
 	
 	}
 	
-	public void startGyroStabilization(){		  
+	public void startGyroStabilization(){
+		gyroStabilizing = true;
+		if(gimbalThread == null){
+			initializeGimbalThread();
+		}
+		gimbalThread.start();
+	}
+	
+	public void initializeGimbalThread(){		  
 		gyroStabilizing = true;
 		gyroUpdateScheduler = new Timer();
 		
@@ -97,11 +105,14 @@ public class CameraGimbal {
 		});
 		
 		gimbalThread.setName("Gimbal Thread");
-		gimbalThread.start();
 	}
 	
 	public void stopGyroStabilization(){
-		gyroStabilizing = false;
-		
+		try{
+			gimbalThread.interrupt();
+			gyroStabilizing = false;
+		}catch(Exception e){
+			System.err.println(e.toString());
+		}
 	}
 }

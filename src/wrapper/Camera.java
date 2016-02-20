@@ -59,8 +59,8 @@ public class Camera{
 					updateCapture();
 					System.out.println("Camera Updated");
 					} catch(Exception e){
-						System.out.println("HOLY SHIZZLE WHY DA FAQ DO YOU NOT WANNA WORK YOU LITTLE BITCH!!!");
-						System.out.println(e.toString());
+						System.err.println("HOLY SHIZZLE WHY DA FAQ DO YOU NOT WANNA WORK YOU LITTLE BITCH!!!");
+						System.err.println(e.toString());
 					}
 				}
 			}
