@@ -2,6 +2,7 @@ package wrapper;
 
 import Enums.Directions;
 import edu.wpi.first.wpilibj.Joystick;
+import Enums.ControllerType;
 
 /**
  * Sorry Garett, I have a coworker who spells his name with double R single T so my bad. -Stephen
@@ -82,5 +83,19 @@ public class Gamepad implements interfaces.Gamepad{
 		stuff.substring(stuff.length()-2);
 		System.out.println(stuff);
 		return stuff;
+	}
+
+	@Override
+	public ControllerType getControllerType() {
+		if(buttons == null){
+			return ControllerType.GP;
+		}
+		
+		for(ControllerType type : ControllerType.values()){
+			if(type.getButtonCount() == joystick.getButtonCount()){
+				return type;
+			}
+		}
+		return ControllerType.GP;
 	}
 }

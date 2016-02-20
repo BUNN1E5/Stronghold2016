@@ -1,7 +1,5 @@
 package autonomousIO;
 
-import java.util.Collections;
-
 import Enums.*;
 import interfaces.XboxController;
 import wrapper.Axes;
