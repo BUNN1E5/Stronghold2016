@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4738.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import wrapper.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -11,12 +12,17 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Robot extends IterativeRobot {
 	
+	public Timer timer;
+	public Camera cam;
+	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	
+    	timer = new Timer();
+    	cam = new Camera("cam0", "cam1");
+    	cam.startCapture();
     }
         
 	/** 
