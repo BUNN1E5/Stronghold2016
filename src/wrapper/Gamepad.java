@@ -1,7 +1,7 @@
 package wrapper;
 
+import Enums.Directions;
 import edu.wpi.first.wpilibj.Joystick;
-import enums.Directions;
 
 /**
  * Sorry Garett, I have a coworker who spells his name with double R single T so my bad. -Stephen

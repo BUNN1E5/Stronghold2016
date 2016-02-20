@@ -2,7 +2,7 @@ package autonomousIO;
 
 import java.util.Collections;
 
-import enums.Directions;
+import Enums.Directions;
 import interfaces.Gamepad;
 import wrapper.ToggleButton;
 
