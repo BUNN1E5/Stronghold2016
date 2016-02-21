@@ -15,10 +15,14 @@ public class DummyGamepad implements Gamepad{
 	protected DataParser parse;
 	protected String s;
 	protected int index = 0;
+	protected int port;
+	
+	protected int controllerCount = 1;
 
-	public DummyGamepad(FileManager fileManager){
+	public DummyGamepad(int port, FileManager fileManager){
 		this.fileManager = fileManager;
 		parse = new DataParser();
+		this.port = port;
 		
 		updateData();
 		
@@ -29,13 +33,26 @@ public class DummyGamepad implements Gamepad{
 	}
 	
 	public void updateData(){
-		if(index < fileManager.lines.size() - 1){
-			s = fileManager.lines.get(index);
+		s = fileManager.lines.get(index);
+		
+		if(index < (fileManager.lines.size())){
+			while(parse.getPort(s) != port){
+				if(parse.getPort(s) == -1)
+					return;
+				controllerCount++;
+				
+				if(controllerCount > 5)
+					return;
+				
+				index++;
+				
+				s = fileManager.lines.get(index);
+			}
 			parse.getNextAxes(s);
 			parse.getNextButtons(s);
 			parse.getNextPOV(s);
 			
-			index++;
+			index += controllerCount;
 		}else{
 			Collections.fill(parse.axes, 0.0);
 			Collections.fill(parse.buttons, false);

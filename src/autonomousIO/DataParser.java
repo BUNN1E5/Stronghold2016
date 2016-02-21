@@ -15,6 +15,7 @@ public class DataParser {
 	public ArrayList<Boolean> buttons;
 	public ArrayList<Double> encoders;
 	public int pov;
+	public int port;
 	
 	public ControllerType getControllerType(){
 		if(buttons == null){
@@ -84,15 +85,39 @@ public class DataParser {
 	}
 	
 	/**
-	 * 
 	 * @param s String from Filer.readNextLine() to parse.
-	 * @return An array list of int to be used as POV switch.
+	 * @return An an int to be used as the port switch.
+	 */
+	public int getPort(String s){
+		
+		sc = new Scanner(s);
+		sc.useDelimiter(",");
+		if(sc.hasNextInt()){
+			port = sc.nextInt();
+		} else{
+			return -1;
+		}
+		sc.close();
+		return port;
+	}
+	
+	/**
+	 * @param s String from Filer.readNextLine() to parse.
+	 * @return An int to be used as POV switch.
 	 */
 	public int getNextPOV(String s){
 		
 		sc = new Scanner(s);
 		sc.useDelimiter(",");
-		pov = sc.nextInt();
+		if(sc.hasNextInt()){
+			sc.nextInt();
+			if(sc.hasNextInt()){
+				pov = sc.nextInt();
+			} else{
+				return -1;
+			}
+			return -1;
+		}
 		sc.close();
 		return pov;
 	}

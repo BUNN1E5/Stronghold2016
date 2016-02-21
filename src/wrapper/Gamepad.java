@@ -13,10 +13,13 @@ public class Gamepad implements interfaces.Gamepad{
 
 	ToggleButton buttons[];
 	Joystick joystick;
+	int port;
+	
 	/**
 	 * @param port Port of the controller in the DS.
 	 */
 	public Gamepad(int port) {
+		this.port = port;
 		joystick = new Joystick(port);
 		buttons = new ToggleButton[joystick.getButtonCount() + 1];
 		for (int i = 0; i <= buttons.length; i++) {
@@ -72,7 +75,7 @@ public class Gamepad implements interfaces.Gamepad{
 	 * @return The controller values in a formatted String.
 	 */
 	public String toString(){
-		String stuff = "";
+		String stuff = "" + port + ",";
 		for(int i = 0; i < joystick.getAxisCount(); i++){
 			stuff += joystick.getRawAxis(i) + ",";
 		}

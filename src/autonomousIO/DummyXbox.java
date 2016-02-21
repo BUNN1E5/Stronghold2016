@@ -10,8 +10,8 @@ import wrapper.Axes;
  */
 public class DummyXbox extends DummyGamepad implements  XboxController{
 		
-	public DummyXbox(FileManager fileManager){
-		super(fileManager);
+	public DummyXbox(int port, FileManager fileManager){
+		super(port, fileManager);
 	}
 	
 	/**
