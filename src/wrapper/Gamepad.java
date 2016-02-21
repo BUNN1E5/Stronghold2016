@@ -101,4 +101,9 @@ public class Gamepad implements interfaces.Gamepad{
 		}
 		return ControllerType.GP;
 	}
+
+	@Override
+	public int getButtonCount() {
+		return joystick.getButtonCount();
+	}
 }

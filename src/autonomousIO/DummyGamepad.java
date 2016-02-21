@@ -102,4 +102,9 @@ public class DummyGamepad implements Gamepad{
 		return ControllerType.GP;
 	}
 
+	@Override
+	public int getButtonCount() {
+		return parse.buttons.size();
+	}
+
 }
