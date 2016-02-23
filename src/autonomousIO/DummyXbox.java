@@ -51,6 +51,11 @@ public class DummyXbox extends DummyGamepad implements  XboxController{
 	public boolean getButtonDown(XboxButtons button) {
 		return getButtonDown(button.ordinal());
 	}
+	
+	@Override
+	public boolean getToggle(XboxButtons button){
+		return getToggle(button.ordinal());
+	}
 
 	@Override
 	public boolean getButtonUp(XboxButtons button) {

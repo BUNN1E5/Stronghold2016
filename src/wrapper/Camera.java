@@ -1,19 +1,21 @@
 package wrapper;
 
+import java.util.ArrayList;
 import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
-
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.vision.USBCamera;
+
+import com.ni.vision.NIVision.DrawMode;
+import com.ni.vision.NIVision.ShapeMode;
 
 /**
  * @author Jacob
  */
+@SuppressWarnings("unused")
 public class Camera{
 	
-	int[] sessions;
+	int maxOffSet = 5;
+	ArrayList<Integer> sessions = new ArrayList<>();
 	Image frame;
 	int camIndex = 0;
 	NIVision.Rect rect;
@@ -28,21 +30,36 @@ public class Camera{
 	 */
 	public Camera(String... camNames){
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB_U64, 0);
-		sessions = new int[camNames.length];
 		rect = new NIVision.Rect(10, 10, 100, 100);
 		for(int i = 0; i < camNames.length; i++){
-			sessions[i] = NIVision.IMAQdxOpenCamera(camNames[i],  NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-			//Can cause crashing!!!
-			//NIVision.IMAQdxSetAttributeU32(sessions[i], "AcquisitionAttributes::VideoMode" , 0);
+			sessions.add(NIVision.IMAQdxOpenCamera(camNames[i],  NIVision.IMAQdxCameraControlMode.CameraControlModeController));
 		}
-		NIVision.IMAQdxStartAcquisition(sessions[camIndex]);
-		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
-		//startCapture();
-		//run();
+		NIVision.IMAQdxStartAcquisition(sessions.get(camIndex));
+		NIVision.IMAQdxConfigureGrab(sessions.get(camIndex));
+	}
+	
+	public Camera(){
+		int offset = 0;
+		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB_U64, 0);
+		rect = new NIVision.Rect(10, 10, 100, 100);
+		for(int i = 0; i < maxOffSet; i++){
+			sessions.set(i, 0);
+			while(sessions.get(i) == 0 && offset < maxOffSet){
+				try{
+					sessions.set(i ,NIVision.IMAQdxOpenCamera("cam" + (i + offset),  NIVision.IMAQdxCameraControlMode.CameraControlModeController));
+				} catch(Exception e){
+					System.err.println("cam" + (i + offset) + " not found now trying cam" + (i + offset + 1));
+					sessions.set(i, 0);
+					offset++;
+				}
+			}
+		}
+		NIVision.IMAQdxStartAcquisition(sessions.get(camIndex));
+		NIVision.IMAQdxConfigureGrab(sessions.get(camIndex));
 	}
 	
 	public void updateCapture(){
-		NIVision.IMAQdxGrab(sessions[camIndex], frame, 1);
+		NIVision.IMAQdxGrab(sessions.get(camIndex), frame, 1);
 		//NIVision.imaqDrawShapeOnImage(frame, frame, rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
 		CameraServer.getInstance().setImage(frame);
 	}
@@ -74,18 +91,22 @@ public class Camera{
 	}
 	
 	public void changeCamera(int index){
-		NIVision.IMAQdxStopAcquisition(sessions[camIndex]);
-		//NIVision.IMAQdxCloseCamera(sessions[camIndex]);
+		NIVision.IMAQdxStopAcquisition(sessions.get(camIndex));
+		//NIVision.IMAQdxCloseCamera(sessions.get(camIndex));
 
 		this.camIndex = index;
-		if(camIndex >= sessions.length){
+		if(camIndex >= sessions.size()){
 			camIndex = 0;
 		}
-		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
+		NIVision.IMAQdxConfigureGrab(sessions.get(camIndex));
 		updateCapture();
 	}
 	
 	public void cycleCamera(){
 		changeCamera(camIndex+1);
 	}	
+	
+	public int camCount(){
+		return sessions.size();
+	}
 }

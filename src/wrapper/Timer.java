@@ -22,7 +22,6 @@ public class Timer {
 	 * @return The change in time.
 	 */
 	public double getDeltaTime(){
-		updateDeltaTime();
 		return deltaTime;
 	}
 	

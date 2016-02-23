@@ -72,6 +72,11 @@ public class DummyGamepad implements Gamepad{
 	public boolean getButton(int button) {
 		return parse.buttons.get(button);
 	}
+	
+	@Override
+	public boolean getToggle(int button) {
+		return buttons[button].getDownToggle(parse.buttons.get(button));
+	}
 
 	@Override
 	public boolean getButtonUp(int button) {
@@ -106,5 +111,4 @@ public class DummyGamepad implements Gamepad{
 	public int getButtonCount() {
 		return parse.buttons.size();
 	}
-
 }

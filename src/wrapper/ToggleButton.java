@@ -5,10 +5,8 @@ package wrapper;
  */
 public class ToggleButton {
 	
-	private boolean 
-		lastPress = false,
-		lastPressToggle = false,
-		toggle = false;
+	boolean lastPress = false, lastPressToggle = false;
+	private boolean toggle = false;
 	
 	/**
 	 * @param state Input button state.

@@ -11,6 +11,7 @@ public interface XboxController extends Joystick{
 	double getRightTrigger();
 	double getLeftTrigger();
 	boolean getButton(XboxButtons button);
+	boolean getToggle(XboxButtons button);
 	boolean getButtonDown(XboxButtons button);
 	boolean getButtonUp(XboxButtons button);
 	boolean getDPad(Directions direction);

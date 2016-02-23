@@ -35,6 +35,10 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	public boolean getButton(XboxButtons button) {
 		return this.getButton(button.ordinal());
 	}
+	
+	public boolean getToggle(XboxButtons button){
+		return this.getToggle(button.ordinal());
+	}
 
 	@Override
 	public boolean getButtonDown(XboxButtons button) {
@@ -45,6 +49,8 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	public boolean getButtonUp(XboxButtons button) {
 		return this.getButtonUp( button.ordinal());
 	}
+	
+	
 
 	@Override
 	public boolean getDPad(Directions direction) {
