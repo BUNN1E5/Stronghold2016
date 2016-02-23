@@ -12,7 +12,6 @@ import wrapper.*;
  */
 public class Robot extends IterativeRobot {
 	
-	public Timer timer;
 	public Camera cam;
 	
     /**
@@ -20,7 +19,6 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	timer = new Timer();
     	cam = new Camera("cam0", "cam1");
     	cam.startCapture();
     }
