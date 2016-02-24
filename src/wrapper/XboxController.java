@@ -12,7 +12,7 @@ public class XboxController extends Gamepad implements interfaces.XboxController
 	}
 
 	@Override
-	public Axes getLeftStick() {
+	public Axes getLeftStick() {		
 		return new Axes(this.getAxis(0), this.getAxis(1));
 	}
 

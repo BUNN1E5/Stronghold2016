@@ -24,6 +24,15 @@ public class Robot extends IterativeRobot {
 	public FileManager manager;
 	public SendableChooser chooser ;
 	
+	
+	RobotControl robot;
+	
+	DummyXbox dbox;
+	XboxController xbox;
+	    
+	DummyGamepad dummypad;
+	Gamepad gamepad;
+	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -33,6 +42,8 @@ public class Robot extends IterativeRobot {
     	cam = new Camera();
     	cam.startCapture();
     	manager = new FileManager();
+    	
+    	robot = new RobotControl();
     	
     	//FIXME: Check if this works!!! try catch statement is temporary!!
     	try{
@@ -44,9 +55,6 @@ public class Robot extends IterativeRobot {
     	}
 
     }
-       
-    DummyXbox dbox;
-    DummyGamepad dpad;
     
 	/** 
 	 * This function is called once before autonomous
@@ -55,29 +63,38 @@ public class Robot extends IterativeRobot {
     	manager = new FileManager(SmartDashboard.getString("Autonomous Selector"), FileType.GP, false);
     	
     	dbox = new DummyXbox(0, manager);
-    	dpad = new DummyGamepad(1, manager);
+    	dummypad = new DummyGamepad(1, manager);
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	
+    	robot.move(dbox, dummypad, cam);
     }
+    
+    ToggleButton toggle;
     
     /**
 	 * This function is called once before during operator control
 	 */
     public void teleopInit() {
-    	
-    	
+    	toggle = new ToggleButton();
+    	manager = new FileManager();
     }
-
-    /**
+       
+     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-
+    	robot.move(xbox, gamepad, cam);
+    	
+    	if(SmartDashboard.getBoolean("Start Recording")){
+    		if(toggle.getDown(SmartDashboard.getBoolean("Start Recording"))){
+    			manager.createNewFile(SmartDashboard.getString("Autonomous Selector"), FileType.GP, false);
+    		}
+    		manager.writeToFile(xbox.toString() + "\n" + gamepad.toString());
+    	}
     }
     
     public void testInit(){
