@@ -10,7 +10,7 @@ import Enums.ControllerType;
 
  */
 public class Gamepad implements interfaces.Gamepad{
-
+	private Timer timer;
 	ToggleButton buttons[];
 	Joystick joystick;
 	int port;
@@ -25,6 +25,8 @@ public class Gamepad implements interfaces.Gamepad{
 		for (int i = 0; i <= buttons.length; i++) {
 			buttons[i] = new ToggleButton();
 		}
+		timer = new Timer();
+		timer.start();
 	}
 	
 	/**
@@ -75,15 +77,14 @@ public class Gamepad implements interfaces.Gamepad{
 	 * @return The controller values in a formatted String.
 	 */
 	public String toString(){
-		String stuff = "" + port + ",";
+		String stuff = port + ",";
 		for(int i = 0; i < joystick.getAxisCount(); i++){
 			stuff += joystick.getRawAxis(i) + ",";
 		}
 		for(int i = 1; i < joystick.getButtonCount(); i++){
 			stuff += ((joystick.getRawButton(i))) + ",";
 		}
-		stuff += joystick.getPOV();
-		stuff.substring(stuff.length()-2);
+		stuff += joystick.getPOV() + "," + timer.getTime()                  /*:)*/                           ;
 		System.out.println(stuff);
 		return stuff;
 	}

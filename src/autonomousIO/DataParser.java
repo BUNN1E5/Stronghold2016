@@ -14,8 +14,9 @@ public class DataParser {
 	public ArrayList<Double> axes;
 	public ArrayList<Boolean> buttons;
 	public ArrayList<Double> encoders;
-	public int pov;
-	public int port;
+	public int pov = -1;
+	public int port = -1;
+	public int time = -1;
 	
 	public ControllerType getControllerType(){
 		if(buttons == null){
@@ -106,7 +107,6 @@ public class DataParser {
 	 * @return An int to be used as POV switch.
 	 */
 	public int getNextPOV(String s){
-		
 		sc = new Scanner(s);
 		sc.useDelimiter(",");
 		if(sc.hasNextInt()){
@@ -116,10 +116,33 @@ public class DataParser {
 			} else{
 				return -1;
 			}
+		}else{
 			return -1;
 		}
 		sc.close();
 		return pov;
+	}
+	
+	public int getTime(String s){
+		sc = new Scanner(s);
+		sc.useDelimiter(",");
+		if(sc.hasNextInt()){
+			sc.nextInt();
+			if(sc.hasNextInt()){//x        <-- this comment means nothing
+				sc.nextInt();
+				if(sc.hasNextInt()){
+					time =  sc.nextInt();
+				}else{
+					return -1;
+				}
+			} else{
+				return -1;
+			}
+		}else{
+			return -1;
+		}
+		sc.close();
+		return time;
 	}
 	
 }

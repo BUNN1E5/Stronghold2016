@@ -5,6 +5,7 @@ import java.util.Collections;
 import Enums.ControllerType;
 import Enums.Directions;
 import interfaces.Gamepad;
+import wrapper.Timer;
 import wrapper.ToggleButton;
 
 public class DummyGamepad implements Gamepad{
@@ -16,6 +17,7 @@ public class DummyGamepad implements Gamepad{
 	protected String s;
 	protected int index = 0;
 	protected int port;
+	protected Timer timer;
 	
 	protected int controllerCount = 1;
 
@@ -23,7 +25,8 @@ public class DummyGamepad implements Gamepad{
 		this.fileManager = fileManager;
 		parse = new DataParser();
 		this.port = port;
-		
+		timer = new Timer();
+		timer.start();
 		updateData();
 		
 		buttons = new ToggleButton[parse.buttons.size() + 1];
@@ -36,23 +39,27 @@ public class DummyGamepad implements Gamepad{
 		s = fileManager.lines.get(index);
 		
 		if(index < (fileManager.lines.size())){
-			while(parse.getPort(s) != port){
-				if(parse.getPort(s) == -1)
-					return;
-				controllerCount++;
+			parse.getTime(s);
+			parse.getPort(s);
+			if(timer.wait((double)parse.time)){
+				while(parse.port != port){
+					if(parse.port == -1)
+						return;
+					controllerCount++;
+					
+					if(controllerCount > 6)
+						return;
+					
+					index++;
+					
+					s = fileManager.lines.get(index);
+				}
+				parse.getNextAxes(s);
+				parse.getNextButtons(s);
+				parse.getNextPOV(s);
 				
-				if(controllerCount > 5)
-					return;
-				
-				index++;
-				
-				s = fileManager.lines.get(index);
+				index += controllerCount;
 			}
-			parse.getNextAxes(s);
-			parse.getNextButtons(s);
-			parse.getNextPOV(s);
-			
-			index += controllerCount;
 		}else{
 			Collections.fill(parse.axes, 0.0);
 			Collections.fill(parse.buttons, false);
