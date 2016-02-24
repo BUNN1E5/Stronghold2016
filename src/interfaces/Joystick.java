@@ -1,6 +1,6 @@
 package interfaces;
 
-import Enums.ControllerType;
+import enums.ControllerType;
 
 public interface Joystick {
 	

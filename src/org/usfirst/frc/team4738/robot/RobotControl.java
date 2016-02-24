@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4738.robot;
 
-import Enums.ControllerType;
-import Enums.Directions;
-import Enums.XboxButtons;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
+import enums.ControllerType;
+import enums.Directions;
+import enums.XboxButtons;
 import interfaces.Gamepad;
 import interfaces.XboxController;
 import wrapper.Camera;

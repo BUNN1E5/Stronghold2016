@@ -2,8 +2,8 @@ package autonomousIO;
 
 import java.util.Collections;
 
-import Enums.ControllerType;
-import Enums.Directions;
+import enums.ControllerType;
+import enums.Directions;
 import interfaces.Gamepad;
 import wrapper.Timer;
 import wrapper.ToggleButton;

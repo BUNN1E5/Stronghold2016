@@ -8,14 +8,17 @@ import wrapper.Timer;
 
 public class Pickup {
 
+	Timer timer;
+	double currentPosition;
+	
 	VictorSP 
 		intakeMotor,
 		rampMotor;
-	Timer timer;
-	double currentPosition;
+	
 	DigitalInput 
 		topSwitch,
 		bottomSwitch;
+	
 	public Pickup(VictorSP intakeMotor, VictorSP rampMotor, DigitalInput topSwitch, DigitalInput bottomSwitch){
 		this.intakeMotor = intakeMotor;
 		this.rampMotor = rampMotor;

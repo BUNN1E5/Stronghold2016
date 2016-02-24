@@ -2,7 +2,7 @@ package autonomousIO;
 
 import java.util.*;
 
-import Enums.ControllerType;
+import enums.ControllerType;
 
 /**
  * Class dedicated to parsing data from data files to be used to control the robot.

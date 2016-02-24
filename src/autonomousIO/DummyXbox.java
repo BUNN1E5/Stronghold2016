@@ -1,6 +1,6 @@
 package autonomousIO;
 
-import Enums.*;
+import enums.*;
 import interfaces.XboxController;
 import wrapper.Axes;
 
