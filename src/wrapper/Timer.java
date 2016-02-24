@@ -5,7 +5,7 @@ package wrapper;
  */
 public class Timer {
 	
-	double deltaTime = 0, startTime;
+	double deltaTime = 0, lastTime = 0, startTime;
 	
 	public void start() {
 		startTime = System.currentTimeMillis();	
@@ -22,6 +22,7 @@ public class Timer {
 	 * @return The change in time.
 	 */
 	public double getDeltaTime(){
+		updateDeltaTime();
 		return deltaTime;
 	}
 	
@@ -29,7 +30,8 @@ public class Timer {
 	 * @author Ghjf544912
 	 */
 	public void updateDeltaTime(){
-		deltaTime=startTime-getTime();
+		deltaTime = getTime() - lastTime;
+		lastTime = getTime();
 	}
 	
 	public void reset(){

@@ -58,7 +58,7 @@ public class RobotControl {
 		if(gamepad.getControllerType().equals(ControllerType.Attack3)){
 			pickup.setPosition(gamepad.getAxis(2));
 		} else if(gamepad.getControllerType().equals(ControllerType.X3D)){
-			pickup.setPosition(gamepad.getAxis(2));
+			pickup.setPosition(gamepad.getAxis(3));
 		} else{
 			pickup.setPosition(0);
 		}
@@ -89,7 +89,11 @@ public class RobotControl {
 				}
 			}else{
 				if(xbox.getDPad(Directions.values()[i])){
-					cam.changeCamera(i);
+					try{
+						cam.changeCamera(i);
+					} catch(Exception e){
+						System.err.println("cam" + i + " does not exist");
+					}
 				}
 			}
 		}
