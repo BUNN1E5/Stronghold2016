@@ -42,20 +42,29 @@ public class Pickup {
 	//NOTE: I do now know if this is the correct math
 	//TODO: Check if this math is correct
 	public void setPosition(double position){
+		double setSpeed;
+		
 		if(Math.abs(position) > 1){
 			position = 1;
 		}
 		
+		
+		
 		currentPosition += ((rampMotor.getSpeed() * Constants.MAX_RAMP_SPEED) * (timer.getDeltaTime() + (Math.random() / 100)));
+		
+		setSpeed = ((position * Constants.MAX_RAMP_ANGLE) - currentPosition) / Constants.MAX_RAMP_ANGLE;
 		
 		if(topSwitch.get()){
 			currentPosition = Constants.MAX_RAMP_ANGLE;
+			if(setSpeed > 0)
+				setSpeed = 0;
 		} else if(bottomSwitch.get()){
 			currentPosition = Constants.MIN_RAMP_ANGLE;	
-		
+			if(setSpeed < 0)
+				setSpeed = 0;		
 		}
 		
-		rampMotor.set(((position * Constants.MAX_RAMP_ANGLE) - currentPosition) / Constants.MAX_RAMP_ANGLE);		
+		rampMotor.set(setSpeed);		
 	}
 	
 }
