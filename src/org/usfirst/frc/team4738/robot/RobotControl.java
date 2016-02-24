@@ -3,6 +3,7 @@ package org.usfirst.frc.team4738.robot;
 import Enums.ControllerType;
 import Enums.Directions;
 import Enums.XboxButtons;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import interfaces.Gamepad;
 import interfaces.XboxController;
@@ -14,9 +15,16 @@ import wrapper.Drive;
 public class RobotControl {
 	
 	Drive drive;
-	VictorSP intakeMotor;
-	VictorSP rampMotor;
 	Pickup pickup;
+	
+	VictorSP 
+		intakeMotor,
+		rampMotor;
+	
+	DigitalInput 
+		topButton,
+		bottomButton;
+	
 	
 	boolean lookingForward = true;
 	boolean overrideCam = false;
@@ -25,8 +33,10 @@ public class RobotControl {
 		drive = new Drive(Constants.PWM_PORT[0], Constants.PWM_PORT[1]);
 		intakeMotor = new VictorSP(Constants.PWM_PORT[2]);
 		rampMotor = new VictorSP(Constants.PWM_PORT[3]);
+		topButton = new DigitalInput(Constants.DIO_PORT[5]);
+		bottomButton = new DigitalInput(Constants.DIO_PORT[4]);
 		
-		pickup = new Pickup(intakeMotor, rampMotor);
+		pickup = new Pickup(intakeMotor, rampMotor, topButton, bottomButton);
 	}
 	
 	public void updateControl(XboxController xbox, Gamepad gamepad){

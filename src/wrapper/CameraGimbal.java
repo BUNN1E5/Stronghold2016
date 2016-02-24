@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Utils.Mathd;
-import Utils.MovingAverage;
+import Utils.*;
+
 
 public class CameraGimbal {
 	

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4738.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import interfaces.Gamepad;
 import wrapper.Constants;
@@ -7,15 +8,20 @@ import wrapper.Timer;
 
 public class Pickup {
 
-	VictorSP intakeMotor;
-	VictorSP rampMotor;
+	VictorSP 
+		intakeMotor,
+		rampMotor;
 	Timer timer;
 	double currentPosition;
-	
-	public Pickup(VictorSP intakeMotor, VictorSP rampMotor){
+	DigitalInput 
+		topSwitch,
+		bottomSwitch;
+	public Pickup(VictorSP intakeMotor, VictorSP rampMotor, DigitalInput topSwitch, DigitalInput bottomSwitch){
 		this.intakeMotor = intakeMotor;
 		this.rampMotor = rampMotor;
 		timer = new Timer();
+		this.topSwitch = topSwitch;
+		this.bottomSwitch = bottomSwitch;
 	}
 	
 	public void intakeMotor(Gamepad gamepad){
@@ -36,8 +42,19 @@ public class Pickup {
 	//NOTE: I do now know if this is the correct math
 	//TODO: Check if this math is correct
 	public void setPosition(double position){
+		if(Math.abs(position) > 1){
+			position = 1;
+		}
+		
 		currentPosition += ((rampMotor.getSpeed() * Constants.MAX_RAMP_SPEED) * timer.getDeltaTime());
-		rampMotor.set(((position * Constants.MAX_RAMP_ANGLE) - currentPosition) / Constants.MAX_RAMP_ANGLE);
+		
+		if(topSwitch.get()){
+			currentPosition = Constants.MAX_RAMP_ANGLE;
+		} else if(bottomSwitch.get()){
+			currentPosition = Constants.MIN_RAMP_ANGLE;	
+		
+		}
+		rampMotor.set(((position * Constants.MAX_RAMP_ANGLE) - currentPosition) / Constants.MAX_RAMP_ANGLE);		
 	}
 	
 }
