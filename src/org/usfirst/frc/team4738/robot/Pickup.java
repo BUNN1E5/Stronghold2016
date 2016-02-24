@@ -46,7 +46,7 @@ public class Pickup {
 			position = 1;
 		}
 		
-		currentPosition += ((rampMotor.getSpeed() * Constants.MAX_RAMP_SPEED) * timer.getDeltaTime());
+		currentPosition += ((rampMotor.getSpeed() * Constants.MAX_RAMP_SPEED) * (timer.getDeltaTime() + (Math.random() / 100)));
 		
 		if(topSwitch.get()){
 			currentPosition = Constants.MAX_RAMP_ANGLE;
@@ -54,6 +54,7 @@ public class Pickup {
 			currentPosition = Constants.MIN_RAMP_ANGLE;	
 		
 		}
+		
 		rampMotor.set(((position * Constants.MAX_RAMP_ANGLE) - currentPosition) / Constants.MAX_RAMP_ANGLE);		
 	}
 	

@@ -22,9 +22,9 @@ public class FileManager {
 	
 	public ArrayList<String> lines = new ArrayList<>();
 	
+	
 	public boolean writeOpen;
 	public boolean readOpen;
-	
 	
 	public FileManager(String name, FileType type, boolean usb){
 		
@@ -35,6 +35,10 @@ public class FileManager {
 		writeOpen = true;
 	}
 	
+	public FileManager(){
+		
+	}
+	
 	public String readLine(){
 		try {
 			return br.readLine();
@@ -42,6 +46,21 @@ public class FileManager {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	File path;
+	public File[] getAutonomousFiles(boolean usb){
+		try{
+
+			if(usb){
+				path = new File(USB_PATH);
+			} else{
+				path = new File(ROBORIO_PATH);
+			}
+		} catch(Exception e){
+			System.err.println("Error can't find directory: " + e.toString());
+			return null;
+		}
+		return path.listFiles();
 	}
 	
 	public void createNewFile(String name, FileType type, boolean usb){
@@ -68,7 +87,7 @@ public class FileManager {
 	}
 	
 	public void updateArrayList(){
-		//lines.addAll(br.lines().collect(Collectors.toList()));
+		lines.addAll(br.lines().collect(Collectors.toList()));
 	}
 	
 	Thread fileWrite;
@@ -77,7 +96,7 @@ public class FileManager {
 		fileWrite = new Thread(new Runnable() {
 			public void run() {
 				try{
-					//bw.write(data);
+					bw.write(data);
 					bw.newLine();
 				} catch(Exception e){
 					
