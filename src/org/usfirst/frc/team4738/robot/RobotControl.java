@@ -30,9 +30,9 @@ public class RobotControl {
 	boolean overrideCam = false;
 	
 	public RobotControl(){
-		drive = new Drive(Constants.PWM_PORT[0], Constants.PWM_PORT[1]);
-		intakeMotor = new VictorSP(Constants.PWM_PORT[2]);
-		rampMotor = new VictorSP(Constants.PWM_PORT[3]);
+		drive = new Drive(Constants.PWM_PORT[1], Constants.PWM_PORT[2]);
+		intakeMotor = new VictorSP(Constants.PWM_PORT[3]);
+		rampMotor = new VictorSP(Constants.PWM_PORT[4]);
 		topButton = new DigitalInput(Constants.DIO_PORT[5]);
 		bottomButton = new DigitalInput(Constants.DIO_PORT[4]);
 		
@@ -40,7 +40,11 @@ public class RobotControl {
 	}
 	
 	public void updateControl(XboxController xbox, Gamepad gamepad){
-		//start Drive controller code
+		updateDriveControl(xbox);
+		updatePickupControl(gamepad);		
+	}
+	
+	public void updateDriveControl(XboxController xbox){
 		lookingForward = xbox.getToggle(XboxButtons.A);
 		
 		if(lookingForward){
@@ -48,12 +52,9 @@ public class RobotControl {
 		} else{
 			drive.parabolicArcade(-xbox.getLeftStick().getX(), -xbox.getLeftStick().getY());
 		}
-		//End Drive controller code
-		
-		
-		
-		// Start Second controller code ---------------------------------------
-		
+	}
+	
+	public void updatePickupControl(Gamepad gamepad){
 		pickup.intakeMotor(gamepad);
 		
 		if(gamepad.getControllerType().equals(ControllerType.Attack3)){
@@ -63,9 +64,6 @@ public class RobotControl {
 		} else{
 			pickup.setPosition(0);
 		}
-		//End second Controller Code-------------------------------------------
-		
-		
 	}
 	
 	public void updateControl(XboxController xbox, Gamepad gamepad, CameraGimbal gimbal){
@@ -106,4 +104,32 @@ public class RobotControl {
 		updateControl(xbox, gamepad, cam);
 	}
 	
+	public void move(XboxController xbox, Camera cam){
+		updateDriveControl(xbox);
+		if(!overrideCam){
+			if(lookingForward && xbox.getButtonDown(XboxButtons.A)){
+				cam.changeCamera(0);
+			} else if(xbox.getButton(XboxButtons.A)){
+				cam.changeCamera(1);	
+			}
+		}
+		
+		for(int i = 0; i < cam.camCount(); i++){
+			if(cam.camCount() < 4){
+				if(xbox.getDPad(Directions.values()[i * 2])){
+					overrideCam = true;
+					cam.changeCamera(i);
+				}
+			}else{
+				if(xbox.getDPad(Directions.values()[i])){
+					try{
+						overrideCam = true;
+						cam.changeCamera(i);
+					} catch(Exception e){
+						System.err.println("cam" + i + " does not exist");
+					}
+				}
+			}
+		}
+	}
 }

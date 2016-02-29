@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	chooser = new SendableChooser(); 
-    	cam = new Camera();
+    	cam = new Camera("cam0", "cam1");
     	cam.startCapture();
     	manager = new FileManager();
     	
@@ -47,8 +47,8 @@ public class Robot extends IterativeRobot {
     	
     	//FIXME: Check if this works!!! try catch statement is temporary!!
     	try{
-    		chooser.addDefault("Autonomous Items", manager.getAutonomousFiles(false));
-    		SmartDashboard.putData("Autonomous Items", chooser);
+    		chooser.addDefault("AutonomousItems", manager.getAutonomousFiles(false));
+    		SmartDashboard.putData("AutonomousItems", chooser);
     	} catch(Exception e){
     		//I dunno what type of exception it would throw
     		System.err.println(e.toString());
@@ -59,19 +59,20 @@ public class Robot extends IterativeRobot {
 	/** 
 	 * This function is called once before autonomous
 	 */    
-    public void autonomousInit() {
-    	manager = new FileManager(SmartDashboard.getString("Autonomous Selector"), FileType.GP, false);
-    	
+    public void autonomousInit() {   
+    	manager = new FileManager("Autonomous", FileType.GP, false, false);
     	dbox = new DummyXbox(0, manager);
-    	dummypad = new DummyGamepad(1, manager);
+    	//dummypad = new DummyGamepad(1, manager);
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	robot.move(dbox, dummypad, cam);
+    	robot.move(dbox, cam);
     }
+    
+    
     
     ToggleButton toggle;
     
@@ -80,30 +81,28 @@ public class Robot extends IterativeRobot {
 	 */
     public void teleopInit() {
     	toggle = new ToggleButton();
-    	manager = new FileManager();
+    	xbox = new XboxController(0);
     }
        
      /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	robot.move(xbox, gamepad, cam);
+    	robot.move(xbox, cam);
     	
-    	if(SmartDashboard.getBoolean("Start Recording")){
-    		if(toggle.getDown(SmartDashboard.getBoolean("Start Recording"))){
-    			manager.createNewFile(SmartDashboard.getString("Autonomous Selector"), FileType.GP, false);
+    	if(SmartDashboard.getBoolean("StartRecording", false)){
+    		if(toggle.getDown(SmartDashboard.getBoolean("StartRecording", false))){
+    			manager.createNewFile("Autonomous", FileType.GP, false, true);
     		}
-    		manager.writeToFile(xbox.toString() + "\n" + gamepad.toString());
+    		manager.writeToFile(xbox.toString());
     	}
     }
+    
     
     public void testInit(){
     	
     }
-    
-    /**
-     * This function is called periodically during test mode
-     */
+
     public void testPeriodic() {
     	
     }

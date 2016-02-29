@@ -22,7 +22,7 @@ public class Gamepad implements interfaces.Gamepad{
 		this.port = port;
 		joystick = new Joystick(port);
 		buttons = new ToggleButton[joystick.getButtonCount() + 1];
-		for (int i = 0; i <= buttons.length; i++) {
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new ToggleButton();
 		}
 		timer = new Timer();

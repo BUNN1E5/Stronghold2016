@@ -15,7 +15,7 @@ import com.ni.vision.NIVision.ShapeMode;
 public class Camera{
 	
 	int maxOffSet = 5;
-	ArrayList<Integer> sessions = new ArrayList<>();
+	int[] sessions = new int[maxOffSet];
 	Image frame;
 	int camIndex = 0;
 	NIVision.Rect rect;
@@ -32,58 +32,63 @@ public class Camera{
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB_U64, 0);
 		rect = new NIVision.Rect(10, 10, 100, 100);
 		for(int i = 0; i < camNames.length; i++){
-			sessions.add(NIVision.IMAQdxOpenCamera(camNames[i],  NIVision.IMAQdxCameraControlMode.CameraControlModeController));
+			sessions[i] = (NIVision.IMAQdxOpenCamera(camNames[i],  NIVision.IMAQdxCameraControlMode.CameraControlModeController));
 		}
-		NIVision.IMAQdxStartAcquisition(sessions.get(camIndex));
-		NIVision.IMAQdxConfigureGrab(sessions.get(camIndex));
+		NIVision.IMAQdxStartAcquisition(sessions[camIndex]);
+		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
 	}
 	
+	/**
+	 * @deprecated
+	 */
 	public Camera(){
-		int offset = 0;
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB_U64, 0);
 		rect = new NIVision.Rect(10, 10, 100, 100);
 		for(int i = 0; i < maxOffSet; i++){
-			sessions.set(i, 0);
-			while(sessions.get(i) == 0 && offset < maxOffSet){
+			sessions[i] = 0;
+			int offset = 0;
+			while(sessions[i] == 0 && offset < maxOffSet){
 				try{
-					sessions.set(i ,NIVision.IMAQdxOpenCamera("cam" + (i + offset),  NIVision.IMAQdxCameraControlMode.CameraControlModeController));
+					sessions[i] = NIVision.IMAQdxOpenCamera("cam" + (i + offset),  NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+					System.out.println("cam" + (i + offset) + " was found");
 				} catch(Exception e){
-					System.err.println("cam" + (i + offset) + " not found now trying cam" + (i + offset + 1));
-					sessions.set(i, 0);
+					//System.err.println("cam" + (i + offset) + " not found now trying cam" + (i + offset + 1));
+					sessions[i] = 0;
 					offset++;
 				}
 			}
 		}
-		NIVision.IMAQdxStartAcquisition(sessions.get(camIndex));
-		NIVision.IMAQdxConfigureGrab(sessions.get(camIndex));
+		NIVision.IMAQdxStartAcquisition(sessions[camIndex]);
+		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
 	}
 	
 	public void updateCapture(){
-		NIVision.IMAQdxGrab(sessions.get(camIndex), frame, 1);
+		NIVision.IMAQdxGrab(sessions[camIndex], frame, 1);
 		//NIVision.imaqDrawShapeOnImage(frame, frame, rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
 		CameraServer.getInstance().setImage(frame);
 	}
 	
 	public void startCapture(){
 		cameraStarted = true;
-		
-		camThread = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				while(cameraStarted){
-					try{
-					updateCapture();
-					System.out.println("Camera Updated");
-					} catch(Exception e){
-						System.err.println("HOLY SHIZZLE WHY DA FAQ DO YOU NOT WANNA WORK YOU LITTLE BITCH!!!");
-						System.err.println(e.toString());
+		if(camCount() != 0){
+			camThread = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					while(cameraStarted){
+						try{
+						updateCapture();
+						//System.out.println("Camera Updated");
+						} catch(Exception e){
+							System.err.println("HOLY SHIZZLE WHY DA FAQ DO YOU NOT WANNA WORK YOU LITTLE BITCH!!!");
+							System.err.println(e.toString());
+						}
 					}
 				}
-			}
-		});
-		camThread.setName("CamThread");
-		camThread.start();
+			});
+			camThread.setName("CamThread");
+			camThread.start();
+		}
 	}
 	
 	public void stopCapture(){
@@ -91,14 +96,14 @@ public class Camera{
 	}
 	
 	public void changeCamera(int index){
-		NIVision.IMAQdxStopAcquisition(sessions.get(camIndex));
+		NIVision.IMAQdxStopAcquisition(sessions[camIndex]);
 		//NIVision.IMAQdxCloseCamera(sessions.get(camIndex));
 
 		this.camIndex = index;
-		if(camIndex >= sessions.size()){
+		if(camIndex >= camCount()){
 			camIndex = 0;
 		}
-		NIVision.IMAQdxConfigureGrab(sessions.get(camIndex));
+		NIVision.IMAQdxConfigureGrab(sessions[camIndex]);
 		updateCapture();
 	}
 	
@@ -107,6 +112,12 @@ public class Camera{
 	}	
 	
 	public int camCount(){
-		return sessions.size();
+		int count = 0;
+		for(int i = 0; i < sessions.length; i++){
+			if(sessions[i] != 0){
+				count++;
+			}
+		}
+		return count;
 	}
 }

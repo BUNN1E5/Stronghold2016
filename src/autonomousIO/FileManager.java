@@ -13,6 +13,7 @@ public class FileManager {
 	public enum FileType {GP, PID};
 	
 	private File file;
+	private String path;	
 	
 	private BufferedReader br;
 	private FileReader fr;
@@ -26,9 +27,9 @@ public class FileManager {
 	public boolean writeOpen;
 	public boolean readOpen;
 	
-	public FileManager(String name, FileType type, boolean usb){
+	public FileManager(String name, FileType type, boolean overwite, boolean usb){
 		
-		createNewFile(name, type, usb);
+		createNewFile(name, type, usb, overwite);
 		
 		updateArrayList();
 		readOpen = true;
@@ -36,7 +37,8 @@ public class FileManager {
 	}
 	
 	public FileManager(){
-		
+		readOpen = true;
+		writeOpen = true;
 	}
 	
 	public String readLine(){
@@ -47,34 +49,61 @@ public class FileManager {
 			return null;
 		}
 	}
-	File path;
-	public File[] getAutonomousFiles(boolean usb){
-		try{
 
+	public File[] getAutonomousFiles(boolean usb){
+		File autoPath;
+
+		try{
 			if(usb){
-				path = new File(USB_PATH);
+				autoPath = new File(USB_PATH);
 			} else{
-				path = new File(ROBORIO_PATH);
+				autoPath = new File(ROBORIO_PATH);
 			}
 		} catch(Exception e){
 			System.err.println("Error can't find directory: " + e.toString());
 			return null;
 		}
-		return path.listFiles();
+		return autoPath.listFiles();
 	}
 	
-	public void createNewFile(String name, FileType type, boolean usb){
+	public void setFile(String name, FileType type, boolean usb){
 		try{
-			Date date = new Date();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("MM.dd");
-			SimpleDateFormat hourFormat = new SimpleDateFormat("HH.mm");
+			if(usb){
+				file = new File(USB_PATH + "/" + name + "." + type.toString());
+			} else{
+				file = new File(ROBORIO_PATH + name + "." + type.toString());
+			}			
+			
+			path = file.getPath();
+			
+			fw = new FileWriter(file);
+			bw = new BufferedWriter(fw);
+			
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			
+			updateArrayList();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void createNewFile(String name, FileType type, boolean usb, boolean overwrite){
+		try{
 			if(usb){
 				file = new File(USB_PATH + "/" + name + "." + type.toString());
 			} else{
 				file = new File(ROBORIO_PATH + name + "." + type.toString());
 			}
 			
-			file.createNewFile();
+			if(overwrite){
+				file.createNewFile();
+			} else{
+				if(!file.exists());
+					file.createNewFile();
+			}
+			
+			path = file.getPath();
 			
 			fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
@@ -82,10 +111,15 @@ public class FileManager {
 			fr = new FileReader(file);
 			br = new BufferedReader(fr);
 		} catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.toString());
 		}
 	}
-	
+
+	//TODO: Find out why this code is unable to read the file
+	//		is it looking at the wrong file? Maybe the file
+	//		doesn't exist? From what I can tell, the Buffered
+	//		Writer br calls the lines function should return
+	//		a stream of strings with add of the lines
 	public void updateArrayList(){
 		lines.addAll(br.lines().collect(Collectors.toList()));
 	}
@@ -93,17 +127,17 @@ public class FileManager {
 	Thread fileWrite;
 	
 	public void writeToFile(String data){
-		fileWrite = new Thread(new Runnable() {
+		new Thread(new Runnable() {
 			public void run() {
 				try{
+					System.out.println(data);
 					bw.write(data);
 					bw.newLine();
 				} catch(Exception e){
-					
+					System.err.println("Whoa something went wrong!! \n" + e.toString());
 				}
 			}
-		});
-		fileWrite.start();
+		}).start();
 	}
 	
 	public void closeWrite(){

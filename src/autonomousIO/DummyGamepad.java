@@ -1,6 +1,8 @@
 package autonomousIO;
 
+import java.io.File;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 import enums.ControllerType;
 import enums.Directions;
@@ -30,7 +32,7 @@ public class DummyGamepad implements Gamepad{
 		updateData();
 		
 		buttons = new ToggleButton[parse.buttons.size() + 1];
-		for (int i = 0; i <= buttons.length; i++) {
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new ToggleButton();
 		}
 	}
@@ -43,6 +45,7 @@ public class DummyGamepad implements Gamepad{
 			parse.getPort(s);
 			if(timer.wait((double)parse.time)){
 				while(parse.port != port){
+					System.out.println(parse.port);
 					if(parse.port == -1)
 						return;
 					controllerCount++;
