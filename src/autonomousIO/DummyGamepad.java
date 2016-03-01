@@ -31,7 +31,7 @@ public class DummyGamepad implements Gamepad{
 		timer.start();
 		updateData();
 		
-		buttons = new ToggleButton[parse.buttons.size() + 1];
+		buttons = new ToggleButton[parse.buttons.size()];
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new ToggleButton();
 		}
@@ -40,10 +40,9 @@ public class DummyGamepad implements Gamepad{
 	public void updateData(){
 		s = fileManager.lines.get(index);
 		
-		if(index < (fileManager.lines.size())){
-			parse.getTime(s);
-			parse.getPort(s);
-			if(timer.wait((double)parse.time)){
+		if(index < (fileManager.lines.size()-1)){
+			parse.getControllerData(s);
+			if(timer.wait(parse.time)){
 				while(parse.port != port){
 					System.out.println(parse.port);
 					if(parse.port == -1)
@@ -57,9 +56,6 @@ public class DummyGamepad implements Gamepad{
 					
 					s = fileManager.lines.get(index);
 				}
-				parse.getNextAxes(s);
-				parse.getNextButtons(s);
-				parse.getNextPOV(s);
 				
 				index += controllerCount;
 			}

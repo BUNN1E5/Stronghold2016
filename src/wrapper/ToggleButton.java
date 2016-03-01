@@ -8,6 +8,13 @@ public class ToggleButton {
 	boolean lastPress = false, lastPressToggle = false;
 	private boolean toggle = false;
 	
+	public ToggleButton(){
+		//that's it, you're done
+		//yay...
+		//goddamn it
+		//ikr (-_-)
+	}
+	
 	/**
 	 * @param state Input button state.
 	 * @return The toggle's state.

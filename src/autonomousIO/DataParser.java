@@ -16,7 +16,7 @@ public class DataParser {
 	public ArrayList<Double> encoders;
 	public int pov = -1;
 	public int port = -1;
-	public int time = -1;
+	public int time = 0;
 	
 	public ControllerType getControllerType(){
 		if(buttons == null){
@@ -37,8 +37,7 @@ public class DataParser {
 	 */
 	public ArrayList<Double> getNextAxes(String s){
 		axes = new ArrayList<Double>();
-		if(!axes.isEmpty())
-			axes.removeAll(axes);
+		axes.removeAll(axes);
 		sc = new Scanner(s);
 		sc.useDelimiter(",");
 		while(sc.hasNextDouble()){
@@ -46,6 +45,28 @@ public class DataParser {
 		}
 		sc.close();
 		return axes;
+	}
+	
+	public void getControllerData(String s){
+		try{
+			axes = new ArrayList<>();
+			buttons = new ArrayList<>();
+			sc = new Scanner(s);
+			sc.useDelimiter(",");
+			port = sc.nextInt();
+			while(sc.hasNextDouble()){
+				axes.add(sc.nextDouble());
+			}
+			while(sc.hasNextBoolean()){
+				buttons.add(sc.nextBoolean());
+			}
+			pov = sc.nextInt();
+			time = sc.nextInt();
+			sc.close();
+		}catch(Exception e){
+			sc.close();
+			System.err.println(e.toString());
+		}
 	}
 	
 	/**
@@ -58,11 +79,8 @@ public class DataParser {
 			buttons.removeAll(buttons);
 		sc = new Scanner(s);
 		sc.useDelimiter(",");
-		while(sc.hasNextInt()){
-			if(sc.nextInt() == 1)
-				buttons.add(true);
-			else
-				buttons.add(false);
+		while(sc.hasNextBoolean()){
+			buttons.add(sc.nextBoolean());
 		}
 		sc.close();
 		return buttons;

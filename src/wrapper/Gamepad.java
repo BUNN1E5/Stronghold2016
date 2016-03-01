@@ -84,7 +84,7 @@ public class Gamepad implements interfaces.Gamepad{
 		for(int i = 1; i < joystick.getButtonCount(); i++){
 			stuff += ((joystick.getRawButton(i))) + ",";
 		}
-		stuff += joystick.getPOV() + "," + timer.getTime()                  /*:)*/                           ;
+		stuff += joystick.getPOV() + "," + (int)timer.getTime()                  /*:)*/                           ;
 		System.out.println(stuff);
 		return stuff;
 	}

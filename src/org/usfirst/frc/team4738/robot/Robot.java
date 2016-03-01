@@ -39,8 +39,8 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	chooser = new SendableChooser(); 
-    	cam = new Camera("cam0", "cam1");
-    	cam.startCapture();
+    	//cam = new Camera("cam0", "cam1");
+    	//cam.startCapture();
     	manager = new FileManager();
     	
     	robot = new RobotControl();
@@ -60,7 +60,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called once before autonomous
 	 */    
     public void autonomousInit() {   
-    	manager = new FileManager("Autonomous", FileType.GP, false, false);
+    	//manager = new FileManager("Autonomous", FileType.GP, false, false);
+    	manager.setFile("Autonomous", FileType.GP, false);
     	dbox = new DummyXbox(0, manager);
     	//dummypad = new DummyGamepad(1, manager);
     }
@@ -69,7 +70,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	robot.move(dbox, cam);
+    	dbox.updateData();
+    	robot.updateDriveControl(dbox);
     }
     
     
@@ -88,7 +90,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	robot.move(xbox, cam);
+    	robot.updateDriveControl(xbox);
     	
     	if(SmartDashboard.getBoolean("StartRecording", false)){
     		if(toggle.getDown(SmartDashboard.getBoolean("StartRecording", false))){

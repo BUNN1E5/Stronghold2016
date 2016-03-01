@@ -69,15 +69,15 @@ public class FileManager {
 	public void setFile(String name, FileType type, boolean usb){
 		try{
 			if(usb){
-				file = new File(USB_PATH + "/" + name + "." + type.toString());
+				file = new File(USB_PATH + name + "." + type.toString());
 			} else{
 				file = new File(ROBORIO_PATH + name + "." + type.toString());
 			}			
 			
 			path = file.getPath();
 			
-			fw = new FileWriter(file);
-			bw = new BufferedWriter(fw);
+			//fw = new FileWriter(file);
+			//bw = new BufferedWriter(fw);
 			
 			fr = new FileReader(file);
 			br = new BufferedReader(fr);
@@ -110,6 +110,7 @@ public class FileManager {
 			
 			fr = new FileReader(file);
 			br = new BufferedReader(fr);
+			updateArrayList();
 		} catch(Exception e){
 			System.err.println(e.toString());
 		}
