@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4738.robot;
 
+import java.util.HashMap;
+
 import autonomousIO.DummyGamepad;
 import autonomousIO.DummyXbox;
 import autonomousIO.FileManager;
@@ -32,22 +34,23 @@ public class Robot extends IterativeRobot {
 	    
 	DummyGamepad dummypad;
 	Gamepad gamepad;
-	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	chooser = new SendableChooser(); 
-    	//cam = new Camera("cam0", "cam1");
-    	//cam.startCapture();
+    	chooser = new SendableChooser();
+    	cam = new Camera("cam0", "cam1");
+    	cam.startCapture();
     	manager = new FileManager();
+    	autonomousChooser = new boolean[manager.getAutonomousFileNames(false).length];
+    	
     	
     	robot = new RobotControl();
     	
     	//FIXME: Check if this works!!! try catch statement is temporary!!
     	try{
-    		chooser.addDefault("AutonomousItems", manager.getAutonomousFiles(false));
+    		chooser.addObject("AutonomousItems", manager.getAutonomousFileNames(false));
     		SmartDashboard.putData("AutonomousItems", chooser);
     	} catch(Exception e){
     		//I dunno what type of exception it would throw
@@ -61,9 +64,9 @@ public class Robot extends IterativeRobot {
 	 */    
     public void autonomousInit() {   
     	//manager = new FileManager("Autonomous", FileType.GP, false, false);
-    	manager.setFile("Autonomous", FileType.GP, false);
+    	manager.setFile((String)chooser.getSelected(), FileType.GP, false);
     	dbox = new DummyXbox(0, manager);
-    	//dummypad = new DummyGamepad(1, manager);
+    	dummypad = new DummyGamepad(1, manager);
     }
 
     /**
@@ -71,7 +74,8 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	dbox.updateData();
-    	robot.updateDriveControl(dbox);
+    	dummypad.updateData();
+    	robot.move(xbox, dummypad, cam);
     }
     
     
@@ -84,6 +88,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
     	toggle = new ToggleButton();
     	xbox = new XboxController(0);
+    	gamepad = new Gamepad(1);
     }
        
      /**

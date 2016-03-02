@@ -17,7 +17,9 @@ public class Drive {
 	 */
 	public Drive(int... ports){
 		for (int port : ports) {
-			motors.add(new VictorSP(port));
+			VictorSP motor = new VictorSP(port);
+			motor.setSafetyEnabled(true);
+			motors.add(motor);
 		}
 	}
 	
@@ -26,9 +28,12 @@ public class Drive {
 	 * @param yAxis y-axis of the joystick
 	 */
 	public void linearArcade(double xAxis, double yAxis){
-		for (int i = 0; i < motors.size(); i+=2) {
-			motors.get(i).set(yAxis + xAxis);
-			motors.get(i+1).set(yAxis - xAxis);
+		for (int i = 0; i < motors.size(); i++) {
+			if(i % 2 == 0){
+				motors.get(i).set(yAxis + xAxis);
+			} else{
+				motors.get(i).set(yAxis - xAxis);
+			}
 		}
 	}
 	
@@ -37,9 +42,12 @@ public class Drive {
 	 * @param rightStick y-axis for left joystick
 	 */
 	public void linearTank(double leftStick, double rightStick){
-		for (int i=0;i<motors.size();i+=2){
-			motors.get(i).set(leftStick);
-			motors.get(i+1).set(rightStick);
+		for (int i=0;i<motors.size();i++){
+			if(i % 2 == 0){
+				motors.get(i).set(leftStick);
+			} else{
+				motors.get(i).set(rightStick);
+			}
 		}
 	}
 	
@@ -48,9 +56,12 @@ public class Drive {
 	 * @param rightStick x-axis for right joystick
 	 */
 	public void parabolicTank(double leftStick, double rightStick){
-		for(int i=0;i<motors.size();i+=2){
-			motors.get(i).set(leftStick*Math.abs(leftStick));
-			motors.get(i+1).set(rightStick*Math.abs(rightStick));
+		for(int i=0;i<motors.size();i++){
+			if(i % 2 == 0){
+				motors.get(i).set(leftStick*Math.abs(leftStick));
+			} else{
+				motors.get(i).set(rightStick*Math.abs(rightStick));
+			}	
 		}
 	}
 	
@@ -59,9 +70,12 @@ public class Drive {
 	 * @param yAxis y-axis for the joystick
 	 */
 	public void parabolicArcade(double xAxis, double yAxis){
-		for (int i=0;i<motors.size();i+=2){
-			motors.get(i).set((yAxis+xAxis)*Math.abs(yAxis+xAxis));
-			motors.get(i+1).set((yAxis-xAxis)*Math.abs(yAxis-xAxis));
+		for (int i=0;i<motors.size();i++){
+			if(i % 2 == 0){
+				motors.get(i).set((yAxis+xAxis)*Math.abs(yAxis+xAxis));
+			} else{
+				motors.get(i).set((yAxis-xAxis)*Math.abs(yAxis-xAxis));
+			}	
 		}
 	}
 	

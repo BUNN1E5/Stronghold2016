@@ -30,9 +30,9 @@ public class RobotControl {
 	boolean overrideCam = false;
 	
 	public RobotControl(){
-		drive = new Drive(Constants.PWM_PORT[1], Constants.PWM_PORT[2]);
-		intakeMotor = new VictorSP(Constants.PWM_PORT[3]);
-		rampMotor = new VictorSP(Constants.PWM_PORT[4]);
+		drive = new Drive(Constants.PWM_PORT[0], Constants.PWM_PORT[1]);
+		intakeMotor = new VictorSP(Constants.PWM_PORT[2]);
+		rampMotor = new VictorSP(Constants.PWM_PORT[3]);
 		topButton = new DigitalInput(Constants.DIO_PORT[5]);
 		bottomButton = new DigitalInput(Constants.DIO_PORT[4]);
 		

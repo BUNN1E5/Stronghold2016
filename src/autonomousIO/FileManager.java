@@ -66,6 +66,17 @@ public class FileManager {
 		return autoPath.listFiles();
 	}
 	
+	public String[] getAutonomousFileNames(boolean usb){
+		File[] files = getAutonomousFiles(usb);
+		String[] returnData = new String[files.length];
+
+		for(int i = 0; i < returnData.length; i++){
+			returnData[i] = files[i].getName();
+		}
+		
+		return returnData;
+	}
+	
 	public void setFile(String name, FileType type, boolean usb){
 		try{
 			if(usb){
