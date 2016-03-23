@@ -18,7 +18,6 @@ public class Drive {
 	public Drive(int... ports){
 		for (int port : ports) {
 			VictorSP motor = new VictorSP(port);
-			motor.setSafetyEnabled(true);
 			motors.add(motor);
 		}
 	}
@@ -61,7 +60,7 @@ public class Drive {
 				motors.get(i).set(leftStick*Math.abs(leftStick));
 			} else{
 				motors.get(i).set(rightStick*Math.abs(rightStick));
-			}	
+			}
 		}
 	}
 	
@@ -75,7 +74,7 @@ public class Drive {
 				motors.get(i).set((yAxis+xAxis)*Math.abs(yAxis+xAxis));
 			} else{
 				motors.get(i).set((yAxis-xAxis)*Math.abs(yAxis-xAxis));
-			}	
+			}
 		}
 	}
 	

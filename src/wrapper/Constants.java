@@ -18,7 +18,7 @@ public class Constants {
 	public static final double 
 		MAX_RAMP_ANGLE = 10, 
 		MIN_RAMP_ANGLE = 0,
-		MAX_RAMP_SPEED = 0,
+		MAX_RAMP_SPEED = 2400, //This is in RPM
 		DEGREES_PER_MILLISECONDS = 360 * MAX_RAMP_SPEED / 60 / 1000,
 		MAX_RAMP_SPEED_DEGREES = DEGREES_PER_MILLISECONDS * MAX_RAMP_ANGLE; 
 }
